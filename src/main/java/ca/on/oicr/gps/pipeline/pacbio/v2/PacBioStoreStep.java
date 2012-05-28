@@ -191,14 +191,14 @@ public class PacBioStoreStep implements PipelineStep {
 		
 		try {
 			DomainRunSample runSample = domainFacade.newRunSample(process, patientId, sampleId);
-			addPacBioMutationData(state, runSample, rows);
+			addPacBioMutationData(state, process, runSample, rows);
 			
 		} catch (PipelineException e) {
 			state.error(e.getError());
 		}
 	}
 	
-	private void addPacBioMutationData(PipelineState state, DomainRunSample runSample, List<PacBioSubmissionRow> rows) throws PipelineException {
+	private void addPacBioMutationData(PipelineState state, DomainProcess process, DomainRunSample runSample, List<PacBioSubmissionRow> rows) throws PipelineException {
 		// Now go through each row creating a mutation record and adding it to the
 		// sequencing run. Maybe we shouldn't actually do this for all records, but
 		// I am sure by now that you get the idea.
@@ -221,7 +221,7 @@ public class PacBioStoreStep implements PipelineStep {
 			assayCriteria.put("name", row.getAssay());
 			
 			DomainAssay assay;
-			List<DomainAssay> assays = domainFacade.findAssays(runSample.getProcess(), assayCriteria);
+			List<DomainAssay> assays = domainFacade.findAssays(process, assayCriteria);
 			if (assays.size() == 0) {
 				throw new PipelineException("data.unknown.assay", row.getAssay());
 			} else if (assays.size() > 1) {

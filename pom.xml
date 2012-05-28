@@ -74,4 +74,12 @@
   		</plugin>
   	</plugins>
   </build>
+  <distributionManagement>
+    <repository>
+      <id>private.repo</id>
+      <name>Stuart's private repository</name>
+      <url>file:///Users/swatt/maven</url>
+    </repository>
+  </distributionManagement>
+  
 </project>
