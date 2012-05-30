@@ -70,7 +70,7 @@
 
 	<issueManagement>
 		<system>JIRA</system>
-		<url>https://jira.oicr.on.ca/</url>
+		<url>https://jira.oicr.on.ca/browse/GPS</url>
 	</issueManagement>
 
 	<ciManagement>
@@ -121,11 +121,6 @@
 			<version>3.1</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>org.slf4j</groupId> -->
-		<!-- <artifactId>slf4j-simple</artifactId> -->
-		<!-- <version>1.6.4</version> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>com.googlecode.sli4j</groupId>
 			<artifactId>sli4j-slf4j-logback</artifactId>
@@ -179,13 +174,5 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-
-	<distributionManagement>
-		<repository>
-			<id>private.repo</id>
-			<name>Stuart's private repository</name>
-			<url>file:///Users/swatt/maven</url>
-		</repository>
-	</distributionManagement>
 
 </project>

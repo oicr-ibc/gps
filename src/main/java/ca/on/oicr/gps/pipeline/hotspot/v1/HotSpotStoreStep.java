@@ -11,10 +11,12 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import ca.on.oicr.gps.pipeline.domain.DomainAssay;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainProcess;
+import ca.on.oicr.gps.pipeline.domain.DomainRunAssay;
 import ca.on.oicr.gps.pipeline.domain.DomainRunSample;
 import ca.on.oicr.gps.pipeline.PipelineStep;
 import ca.on.oicr.gps.pipeline.model.Mutations;
@@ -217,6 +219,13 @@ public class HotSpotStoreStep implements PipelineStep {
 			Map<String, Object> assayCriteria = new HashMap<String, Object>();
 			assayCriteria.put("gene", row.getGene());
 			
+			// Create a null run assay - this is required to associate the observed
+			// mutation with the panel correctly. We can also use this to record
+			// failed tests. 
+			DomainAssay assay = null;
+			DomainRunAssay runAssay = domainFacade.newRunAssay(runSample, assay);
+			runAssay.setStatus(DomainRunAssay.STATUS_YES);
+			
 			Map<String, Object> criteria = getKnownMutationCriteria(row);
 			Map<String, Object> searchCriteria = new HashMap<String, Object>(criteria);
 			
@@ -232,7 +241,7 @@ public class HotSpotStoreStep implements PipelineStep {
 				known = domainFacade.newKnownMutation(criteria);
 			}
 			
-			DomainObservedMutation mut = domainFacade.newObservedMutation(null, known);
+			DomainObservedMutation mut = domainFacade.newObservedMutation(runAssay, known);
 			mut.setFrequency(row.getVrf());
 			
 			mut.setStatus(DomainObservedMutation.MUTATION_STATUS_FOUND);
