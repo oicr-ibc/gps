@@ -104,8 +104,9 @@ abstract class FieldParser {
 	}
 
 	private static class EnumFieldParser extends FieldParser {
-		Enum enums[];
+		Enum<? extends Enum<?>> enums[];
 
+		@SuppressWarnings("unchecked")
 		EnumFieldParser(List<String> header, Field field) {
 			super(header, field);
 			this.enums = ((Class<? extends Enum<?>>) field.getType()).getEnumConstants();
@@ -116,7 +117,7 @@ abstract class FieldParser {
 				Object value) {
 			switch (type) {
 			case STRING:
-				for (Enum e : enums) {
+				for (Enum<? extends Enum<?>> e : enums) {
 					if (e.name().equalsIgnoreCase(value.toString())) {
 						return e;
 					}
