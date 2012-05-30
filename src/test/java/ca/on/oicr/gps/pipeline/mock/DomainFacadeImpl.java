@@ -16,7 +16,6 @@ import ca.on.oicr.gps.pipeline.domain.DomainProcess;
 import ca.on.oicr.gps.pipeline.domain.DomainRunAssay;
 import ca.on.oicr.gps.pipeline.domain.DomainRunSample;
 import ca.on.oicr.gps.pipeline.model.PipelineException;
-import ca.on.oicr.gps.pipeline.pacbio.v1.PacBioStoreStep;
 import ca.on.oicr.gps.util.Utilities;
 
 public class DomainFacadeImpl implements DomainFacade {

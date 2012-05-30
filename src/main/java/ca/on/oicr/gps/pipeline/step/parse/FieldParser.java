@@ -108,8 +108,7 @@ abstract class FieldParser {
 
 		EnumFieldParser(List<String> header, Field field) {
 			super(header, field);
-			this.enums = ((Class<? extends Enum>) field.getType())
-					.getEnumConstants();
+			this.enums = ((Class<? extends Enum<?>>) field.getType()).getEnumConstants();
 		}
 
 		@Override

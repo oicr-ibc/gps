@@ -17,7 +17,7 @@ public class PacBioMutations implements Mutations {
 	private String assayPanelId;
 	private Date date;
 
-	private final List<PacBioMutationRow> rows = new ArrayList();
+	private final List<PacBioMutationRow> rows = new ArrayList<PacBioMutationRow>();
 
 	public PacBioMutations() {
 	}

@@ -28,6 +28,7 @@ import com.google.common.collect.Maps;
 
 public class PacBioParseStep implements PipelineStep {
 
+	@SuppressWarnings("unused")
 	private static final Logger log = LoggerFactory.getLogger(PacBioParseStep.class);
 
 	private Pattern blankLinePattern = Pattern.compile("^\\s*$");
