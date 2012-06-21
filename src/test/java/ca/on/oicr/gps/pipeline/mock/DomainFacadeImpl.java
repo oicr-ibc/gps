@@ -1,5 +1,7 @@
 package ca.on.oicr.gps.pipeline.mock;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ca.on.oicr.gps.pipeline.domain.DomainAssay;
+import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
@@ -39,27 +41,38 @@ public class DomainFacadeImpl implements DomainFacade {
 		return new DomainRunSampleImpl(process);
 	}
 
-	Map<String, List<DomainAssay>> assayTable = new HashMap<String, List<DomainAssay>>();
+	List<DomainTarget> targetTable = new ArrayList<DomainTarget>();
 	
-	public List<DomainAssay> findAssays(DomainProcess process, Map<String, Object> criteria) {
+	public List<DomainTarget> findTargets(DomainProcess process, Map<String, Object> criteria) {
+		
 		String key = Utilities.criteriaAsString(criteria);
-		log.info("Looking for assays: {}", key);
-		List<DomainAssay> result = assayTable.get(key);
-		log.info("Found assays: {}", result);
+		log.info("Looking for targets: {}", key);
+
+		List<DomainTarget> result = new ArrayList<DomainTarget>();
+		for(DomainTarget target : targetTable) {
+			if (criteria.containsKey("chromosome") && ! target.getChromosome().equals(criteria.get("chromosome"))) continue;
+			if (criteria.containsKey("gene") && ! target.getGene().equals(criteria.get("gene"))) continue;
+			if (criteria.containsKey("start") && target.getStart() > ((Integer) criteria.get("start")).intValue()) continue;
+			if (criteria.containsKey("stop") && target.getStop() < ((Integer) criteria.get("stop")).intValue()) continue;
+			if (criteria.containsKey("refAllele") && ! target.getRefAllele().equals(criteria.get("refAllele"))) continue;
+			if (criteria.containsKey("varAllele") && ! target.getVarAllele().equals(criteria.get("varAllele"))) continue;
+			if (criteria.containsKey("mutation") && ! target.getMutation().equals(criteria.get("mutation"))) continue;
+			result.add(target);
+		}
+		
+		log.info("Found targets: {}", result);
 		return result;
 	}
 
-	public DomainAssay newAssay(DomainRunSample runSample, String gene, String name) {
-		return new DomainAssayImpl(name);
-	}
-
-	public DomainRunAssay newRunAssay(DomainRunSample runSample, DomainAssay runAssay) {
-		return new DomainRunAssayImpl();
-	}
-	
 	private Map<String, DomainKnownMutation> mutationTable = new HashMap<String, DomainKnownMutation>();
 
 	public DomainKnownMutation findKnownMutation(Map<String, Object> criteria) {
+		
+		assertTrue(criteria.containsKey("chromosome"));
+		assertTrue(criteria.containsKey("start"));
+		assertTrue(criteria.containsKey("stop"));
+		assertTrue(criteria.containsKey("varAllele"));
+
 		String key = Utilities.criteriaAsString(criteria);
 		log.info("Looking for known mutation: {}", key);
 		DomainKnownMutation result = mutationTable.get(key);
@@ -73,16 +86,16 @@ public class DomainFacadeImpl implements DomainFacade {
 		return new DomainKnownMutationImpl((String)criteria.get("mutation"), key);
 	}
 
-	public DomainObservedMutation newObservedMutation(DomainRunAssay runAssay, DomainKnownMutation known) {
+	public DomainObservedMutation newObservedMutation(DomainRunSample runSample, DomainKnownMutation known) {
 		return new DomainObservedMutationImpl();
 	}
 
-	public void saveProcess(DomainProcess s) {
+	public void finishProcess(DomainProcess s) {
 		return;
 	}
 
-	public void setAssays(String key, List<DomainAssay> arrayList) {
-		assayTable.put(key, arrayList);
+	public void setTargets(List<DomainTarget> arrayList) {
+		targetTable = arrayList;
 	}
 
 	public void setKnownMutation(String key, DomainKnownMutation known) {

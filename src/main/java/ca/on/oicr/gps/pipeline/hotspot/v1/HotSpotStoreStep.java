@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ca.on.oicr.gps.pipeline.domain.DomainAssay;
+import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
@@ -170,7 +170,7 @@ public class HotSpotStoreStep implements PipelineStep {
 		
 		if (! state.hasFailed()) {
 			for(DomainProcess process : processTable.values()) {
-				domainFacade.saveProcess(process);
+				domainFacade.finishProcess(process);
 			}
 		}
 	}
@@ -216,32 +216,37 @@ public class HotSpotStoreStep implements PipelineStep {
 			}
 			
 			// YES rows have a mutation and are therefore more specific
-			Map<String, Object> assayCriteria = new HashMap<String, Object>();
-			assayCriteria.put("gene", row.getGene());
+			Map<String, Object> targetCriteria = new HashMap<String, Object>();
+			targetCriteria.put("chromosome", row.getChromosome().replace("chr", ""));
+			targetCriteria.put("start", row.getStart());
+			targetCriteria.put("stop", row.getStop());
 			
-			// Create a null run assay - this is required to associate the observed
-			// mutation with the panel correctly. We can also use this to record
-			// failed tests. 
-			DomainAssay assay = null;
-			DomainRunAssay runAssay = domainFacade.newRunAssay(runSample, assay);
-			runAssay.setStatus(DomainRunAssay.STATUS_YES);
+			// Purely for validation, check that we can find a target for the given
+			// row. We don't create an association with the target, but basically shout
+			// if the panel didn't include the given target. 
+			List<DomainTarget> targets = domainFacade.findTargets(process, targetCriteria);
+			if (targets.size() < 1) {
+				throw new PipelineException("data.missing.target", targetCriteria.toString());
+			}
 			
 			Map<String, Object> criteria = getKnownMutationCriteria(row);
 			Map<String, Object> searchCriteria = new HashMap<String, Object>(criteria);
 			
 			// Remove criteria values that we consider unreliable. In the case of PacBio they 
 			// ought to be reliable, but they actually aren't. Yet. 
-			searchCriteria.remove("start");
-			searchCriteria.remove("stop");
-			searchCriteria.remove("refAllele");
-			searchCriteria.remove("varAllele");
+			//searchCriteria.remove("start");
+			//searchCriteria.remove("stop");
+			//searchCriteria.remove("refAllele");
+			//searchCriteria.remove("varAllele");
+			searchCriteria.remove("gene");
+			searchCriteria.remove("mutation");
 			
 			DomainKnownMutation known = domainFacade.findKnownMutation(searchCriteria);
 			if (known == null) {
 				known = domainFacade.newKnownMutation(criteria);
 			}
 			
-			DomainObservedMutation mut = domainFacade.newObservedMutation(runAssay, known);
+			DomainObservedMutation mut = domainFacade.newObservedMutation(runSample, known);
 			mut.setFrequency(row.getVrf());
 			
 			mut.setStatus(DomainObservedMutation.MUTATION_STATUS_FOUND);
@@ -257,14 +262,7 @@ public class HotSpotStoreStep implements PipelineStep {
 		criteria.put("stop", row.getStop());
 		criteria.put("refAllele", row.getRefAllele());
 		criteria.put("varAllele", row.getAllele());
-		
-		String chromosomeString = row.getChromosome();
-		try {
-			chromosomeString = chromosomeString.replace("chr", "");
-			criteria.put("chromosome", Integer.parseInt(chromosomeString));
-		} catch (NumberFormatException err) {
-			throw new PipelineException("data.invalid.chromosome", chromosomeString);
-		}
+		criteria.put("chromosome", row.getChromosome().replace("chr", ""));
 
 		return criteria;
 	}

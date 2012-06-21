@@ -45,4 +45,26 @@ public class PipelineError {
 	public List<Object> getArgs() {
 		return args;
 	}
+	
+	/**
+	 * Stringify the error, which is very handy for lazy coders who get errors
+	 * out of their pipelines.
+	 */
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append(this.getClass().getSimpleName());
+		builder.append(": ");
+		builder.append(key);
+		builder.append(": ");
+		boolean doneOne = false;
+		for(Object arg : args) {
+			if (doneOne) {
+				builder.append(", ");
+			}
+			builder.append(arg.toString());
+			doneOne = true;
+		}
+		return builder.toString();
+	}
 }

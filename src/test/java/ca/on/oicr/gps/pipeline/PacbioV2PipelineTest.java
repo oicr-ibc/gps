@@ -10,9 +10,9 @@ import java.util.List;
 
 import org.junit.*;
 
-import ca.on.oicr.gps.pipeline.domain.DomainAssay;
-import ca.on.oicr.gps.pipeline.mock.DomainAssayImpl;
+import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.mock.DomainFacadeImpl;
+import ca.on.oicr.gps.pipeline.mock.DomainTargetImpl;
 import ca.on.oicr.gps.pipeline.model.MutationSubmission;
 import ca.on.oicr.gps.pipeline.model.PipelineError;
 import ca.on.oicr.gps.pipeline.model.PipelineState;
@@ -46,22 +46,49 @@ public class PacbioV2PipelineTest {
 		replay(submission);
 		
 		DomainFacadeImpl domain = new DomainFacadeImpl();
-		domain.setAssays(
-			"gene=PDGFRA;name=PDGFRA_6",
-			Arrays.asList((DomainAssay) new DomainAssayImpl("PDGFRA_6")));
-		domain.setAssays(
-			"gene=EGFR;name=EGFR_5",
-			Arrays.asList((DomainAssay) new DomainAssayImpl("EGFR_5")));
+		domain.setTargets(
+			Arrays.asList((DomainTarget) 
+					new DomainTargetImpl("4", null, 55161391, 55161391, null, null, null),
+					new DomainTargetImpl("7", null, 55242364, 55242697, null, null, null),
+					new DomainTargetImpl("7", null, 55248895, 55249207, null, null, null)));
 				
 		PipelineState state = pipeline.newState(submission, domain);
 		PipelineRunner runner = new PipelineRunner(state);
 		runner.run();
 		
-		assert state.isDone();
+		assertTrue(state.isDone());
 		
 		List<PipelineError> errors = state.errors();
 		assertEquals(0, errors.size());
 		
-		assert ! state.hasFailed();
+		assertTrue(! state.hasFailed());
+	}
+
+	@Test
+	public void testProcessSubmissionWithMissingTarget() throws Exception {
+		
+		InputStream input = new FileInputStream("src/test/resources/pacbio_test_04.xls"); 
+		
+		MutationSubmission submission = createMock(MutationSubmission.class);
+		expect(submission.getType()).andReturn((String) "PacBioV2");
+		expect(submission.getSubmissionInputStream()).andReturn((InputStream) input);
+		replay(submission);
+		
+		DomainFacadeImpl domain = new DomainFacadeImpl();
+		domain.setTargets(
+			Arrays.asList((DomainTarget) 
+					new DomainTargetImpl("4", null, 55161391, 55161391, null, null, null),
+					new DomainTargetImpl("7", null, 55242364, 55242697, null, null, null)));
+				
+		PipelineState state = pipeline.newState(submission, domain);
+		PipelineRunner runner = new PipelineRunner(state);
+		runner.run();
+		
+		assertTrue(state.isDone());
+		
+		List<PipelineError> errors = state.errors();
+		assertEquals(1, errors.size());
+		
+		assertTrue(state.hasFailed());
 	}
 }

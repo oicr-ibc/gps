@@ -1,15 +1,24 @@
 package ca.on.oicr.gps.pipeline.sequenom.v1;
 
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ca.on.oicr.gps.pipeline.domain.DomainAssay;
+import au.com.bytecode.opencsv.CSVReader;
+import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
+import au.com.bytecode.opencsv.bean.CsvToBean;
+
+import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
@@ -22,7 +31,22 @@ import ca.on.oicr.gps.pipeline.model.PipelineException;
 import ca.on.oicr.gps.pipeline.model.PipelineState;
 
 public class SequenomStoreStep implements PipelineStep {
-
+	
+	private String resourceName = null;
+	private List<SequenomMutation> mutationTable = new ArrayList<SequenomMutation>();
+	
+	Pattern p = Pattern.compile("^[ACGT]*$");
+	
+	class SequenomMutation {
+		public SequenomMutation() {};
+		String chromosome;
+		int start;
+		int stop;
+		String refAllele;
+		String varAllele;
+		String name;
+	}
+	
 	private static final Logger log = LoggerFactory.getLogger(SequenomStoreStep.class);
 	
 	/*
@@ -139,7 +163,7 @@ public class SequenomStoreStep implements PipelineStep {
 		
 		if (! state.hasFailed()) {
 			for(DomainProcess process : processTable.values()) {
-				domainFacade.saveProcess(process);
+				domainFacade.finishProcess(process);
 			}
 		}
 	}
@@ -177,51 +201,50 @@ public class SequenomStoreStep implements PipelineStep {
 			
 			// Here we skip a blank/unknown row. This will leave a Run with YES mutations,
 			// which is probably the best way of allowing for this to be collated
-			// during reporting. 
+			// during reporting, as well as unknown assay results. We need to record 
+			// the assays either way. 
 			
-			if (row.getStatus() == null) {
+			SequenomSubmissionRow.Status status = row.getStatus();
+			if (! SequenomSubmissionRow.Status.YES.equals(status)) {
 				continue;
 			}
 			
 			// YES rows have a mutation and are therefore more specific
-			Map<String, Object> assayCriteria = new HashMap<String, Object>();
-			assayCriteria.put("gene", row.getGene());
-			assayCriteria.put("name", row.getAssay());
+			Map<String, Object> targetCriteria = new HashMap<String, Object>();
+			targetCriteria.put("gene", row.getGene());
+			targetCriteria.put("mutation", row.getMutation());
 			
-			DomainAssay assay;
-			List<DomainAssay> assays = domainFacade.findAssays(process, assayCriteria);
-			if (assays.size() == 0) {
-				throw new PipelineException("data.unknown.assay", row.getAssay());
-			} else if (assays.size() > 1) {
-				throw new PipelineException("data.ambiguous.assay", row.getAssay());
-			} else {
-				assay = assays.get(0);
+			// If the allele consists entirely if ACGT, we can include it, otherwise
+			// we should omit it from the target criteria. 
+			String allele = row.getAllele();
+			if (p.matcher(allele).matches()) {
+				targetCriteria.put("varAllele", allele);
 			}
-
+			
+			List<DomainTarget> targets = domainFacade.findTargets(process, targetCriteria);
+			if (targets.size() == 0) {
+				throw new PipelineException("data.missing.target", targetCriteria.toString());
+			} else if (targets.size() > 1) {
+				throw new PipelineException("data.ambiguous.target", targetCriteria.toString());
+			}
+			
+			DomainTarget target = targets.get(0);
 			Map<String, Object> criteria = new HashMap<String, Object>();
 			criteria.put("gene", row.getGene());
 			criteria.put("mutation", row.getMutation());
-			
-			DomainRunAssay runAssay = domainFacade.newRunAssay(runSample, assay);
-
-			// For an unknown row, don't even look for a mutation, as there shouldn't be
-			// one. So, we only make a connection to the knowledge system when we can find
-			// a YES row.
-			
-			if (row.getStatus().equals(SequenomSubmissionRow.Status.UNKNOWN)) {
-				runAssay.setStatus(DomainRunAssay.STATUS_FAIL);
-				continue;
-			}
-			
-			runAssay.setStatus(DomainRunAssay.STATUS_YES);
+			criteria.put("chromosome", target.getChromosome());
+			criteria.put("start", target.getStart());
+			criteria.put("stop", target.getStop());
+			criteria.put("refAllele", target.getRefAllele());
+			criteria.put("varAllele", target.getVarAllele());
 			
 			DomainKnownMutation known = domainFacade.findKnownMutation(criteria);
 			if (known == null) {
-				state.error("data.unknown.mutation", row.getGene(), row.getMutation());
+				state.error("data.unknown.mutation", criteria);
 				continue;
 			}
 			
-			DomainObservedMutation mut = domainFacade.newObservedMutation(runAssay, known);
+			DomainObservedMutation mut = domainFacade.newObservedMutation(runSample, known);
 			mut.setFrequency(row.getFreq());
 			
 			// This is about all we get from Sequenom for an observed mutation
@@ -231,7 +254,10 @@ public class SequenomStoreStep implements PipelineStep {
 			
 			// And be careful here too, this way we don't worry about what the encoding might
 			// be. 
-			if (row.getConfidence().equalsIgnoreCase("High")) {
+			String confidence = row.getConfidence();
+			if (confidence == null) {
+				// Don't set anything
+			} else if (row.getConfidence().equalsIgnoreCase("High")) {
 				mut.setConfidence(DomainObservedMutation.MUTATION_CONFIDENCE_HIGH);
 			}
 		}

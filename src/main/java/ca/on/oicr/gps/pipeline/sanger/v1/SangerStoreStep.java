@@ -9,7 +9,7 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ca.on.oicr.gps.pipeline.domain.DomainAssay;
+import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
@@ -21,6 +21,8 @@ import ca.on.oicr.gps.pipeline.model.Mutations;
 import ca.on.oicr.gps.pipeline.model.PipelineException;
 import ca.on.oicr.gps.pipeline.model.PipelineState;
 import ca.on.oicr.gps.pipeline.sanger.v1.SangerSubmissionRow.Status;
+import ca.on.oicr.gps.positioning.GenePositionLocator;
+import ca.on.oicr.gps.positioning.GeneReference;
 
 public class SangerStoreStep implements PipelineStep {
 
@@ -142,7 +144,7 @@ public class SangerStoreStep implements PipelineStep {
 		
 		if (! state.hasFailed()) {
 			for(DomainProcess process : processTable.values()) {
-				domainFacade.saveProcess(process);
+				domainFacade.finishProcess(process);
 			}
 		}
 	}
@@ -162,13 +164,13 @@ public class SangerStoreStep implements PipelineStep {
 		
 		try {
 			DomainRunSample runSample = domainFacade.newRunSample(process, patientId, sampleId);
-			addSangerMutationData(state, runSample, rows);
+			addSangerMutationData(state, process, runSample, rows);
 		} catch (PipelineException e) {
 			state.error(e.getError());
 		}
 	}
 	
-	private void addSangerMutationData(PipelineState state, DomainRunSample runSample, List<SangerSubmissionRow> rows) throws PipelineException {		
+	private void addSangerMutationData(PipelineState state, DomainProcess process, DomainRunSample runSample, List<SangerSubmissionRow> rows) throws PipelineException {		
 		// Now go through each row creating a mutation record and adding it to the
 		// sequencing run. Maybe we shouldn't actually do this for all records, but
 		// I am sure by now that you get the idea.
@@ -198,6 +200,16 @@ public class SangerStoreStep implements PipelineStep {
 			criteria.put("gene", gene);
 			criteria.put("mutation", mutation);
 			
+			GenePositionLocator loc = new GenePositionLocator();
+			GeneReference ref = new GeneReference(row.getNcbiReference(), row.getCdnaMutation());
+			List<GeneReference> refs = new ArrayList<GeneReference>();
+			refs.add(ref);
+			loc.translateReference(refs);
+			
+			criteria.put("start", Integer.valueOf(ref.getStart()));
+			criteria.put("stop", Integer.valueOf(ref.getStop()));
+			criteria.put("chromosome", ref.getChromosome());
+			criteria.put("varAllele", ref.getVarAllele());
 			
 			if (row.getStatus().equals(SangerSubmissionRow.Status.YES)) {
 				found = domainFacade.findKnownMutation(criteria);
@@ -206,26 +218,13 @@ public class SangerStoreStep implements PipelineStep {
 				}
 			}
 			
-			DomainAssay assay = domainFacade.newAssay(runSample, gene, mutation);
-			
-			DomainRunAssay runAssay = domainFacade.newRunAssay(runSample, assay);
-			
-			if (row.getStatus().equals(SangerSubmissionRow.Status.UNKNOWN)) {
-				runAssay.setStatus(DomainRunAssay.STATUS_FAIL);
-			} else if (row.getStatus().equals(SangerSubmissionRow.Status.NO)) {
-				runAssay.setStatus(DomainRunAssay.STATUS_NO);
-			} else if (row.getStatus().equals(SangerSubmissionRow.Status.YES)) {
-				runAssay.setStatus(DomainRunAssay.STATUS_YES);
-			} else {
-				throw new PipelineException("Invalid status: " + row.getStatus());
-			}
-			
 			if (row.getStatus().equals(SangerSubmissionRow.Status.YES)) {
 				assert (found != null);
-				DomainObservedMutation mut = domainFacade.newObservedMutation(runAssay, found);
+				DomainObservedMutation mut = domainFacade.newObservedMutation(runSample, found);
 				mut.setStatus(DomainObservedMutation.MUTATION_STATUS_FOUND);
 				mut.setFrequency(row.getFreq());
 			}
 		}
 	}
+	
 }
