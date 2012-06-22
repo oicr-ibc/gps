@@ -112,7 +112,7 @@ public class GenePositionLocator {
 		
 		Map<String, List<GeneReference>> refTable = buildReferenceTable(references);
 		
-		InputStream refGene = ClassLoader.class.getResourceAsStream("/refGene.txt");
+		InputStream refGene = GenePositionLocator.class.getResourceAsStream("/refGene.txt");
 		Reader bufferedReader = new BufferedReader(new InputStreamReader(refGene));
 
 		CSVReader reader = new CSVReader(bufferedReader, '\t');
