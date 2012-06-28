@@ -200,8 +200,12 @@ public class SangerStoreStep implements PipelineStep {
 			criteria.put("gene", gene);
 			criteria.put("mutation", mutation);
 			
+			String nbciReference = row.getNcbiReference();
+			String cdnaMutation = row.getCdnaMutation();
+			cdnaMutation = cdnaMutation.replace(" ", "");
+			
 			GenePositionLocator loc = new GenePositionLocator();
-			GeneReference ref = new GeneReference(row.getNcbiReference(), row.getCdnaMutation());
+			GeneReference ref = new GeneReference(nbciReference, cdnaMutation);
 			List<GeneReference> refs = new ArrayList<GeneReference>();
 			refs.add(ref);
 			loc.translateReference(refs);
