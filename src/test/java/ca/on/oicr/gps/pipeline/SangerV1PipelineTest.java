@@ -5,12 +5,10 @@ import static org.easymock.EasyMock.*;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.*;
 
-import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.mock.DomainFacadeImpl;
 import ca.on.oicr.gps.pipeline.model.MutationSubmission;
 import ca.on.oicr.gps.pipeline.model.PipelineError;

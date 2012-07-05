@@ -1,29 +1,20 @@
 package ca.on.oicr.gps.pipeline.sequenom.v1;
 
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import au.com.bytecode.opencsv.CSVReader;
-import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
-import au.com.bytecode.opencsv.bean.CsvToBean;
 
 import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainProcess;
-import ca.on.oicr.gps.pipeline.domain.DomainRunAssay;
 import ca.on.oicr.gps.pipeline.domain.DomainRunSample;
 import ca.on.oicr.gps.pipeline.PipelineStep;
 import ca.on.oicr.gps.pipeline.model.Mutations;

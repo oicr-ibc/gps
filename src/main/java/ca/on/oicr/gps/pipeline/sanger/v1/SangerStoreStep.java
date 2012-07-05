@@ -9,12 +9,10 @@ import java.util.TreeMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import ca.on.oicr.gps.pipeline.domain.DomainTarget;
 import ca.on.oicr.gps.pipeline.domain.DomainFacade;
 import ca.on.oicr.gps.pipeline.domain.DomainKnownMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainObservedMutation;
 import ca.on.oicr.gps.pipeline.domain.DomainProcess;
-import ca.on.oicr.gps.pipeline.domain.DomainRunAssay;
 import ca.on.oicr.gps.pipeline.domain.DomainRunSample;
 import ca.on.oicr.gps.pipeline.PipelineStep;
 import ca.on.oicr.gps.pipeline.model.Mutations;
