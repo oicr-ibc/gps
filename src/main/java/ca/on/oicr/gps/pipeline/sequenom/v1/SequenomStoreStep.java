@@ -23,9 +23,6 @@ import ca.on.oicr.gps.pipeline.model.PipelineState;
 
 public class SequenomStoreStep implements PipelineStep {
 	
-	private String resourceName = null;
-	private List<SequenomMutation> mutationTable = new ArrayList<SequenomMutation>();
-	
 	Pattern p = Pattern.compile("^[ACGT]*$");
 	
 	class SequenomMutation {

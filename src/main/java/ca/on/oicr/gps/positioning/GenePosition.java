@@ -18,6 +18,7 @@ public class GenePosition {
 			String stop = matcher.group(2);
 			String insertAllele = matcher.group(3);
 			String deleteAllele = matcher.group(4);
+			@SuppressWarnings("unused")
 			String replaceFromAllele = matcher.group(5);
 			String replaceToAllele = matcher.group(6);
 			if (stop == null) {

@@ -129,15 +129,19 @@ public class GenePositionLocator {
 		    	
 		    	String chromosome = nextLine[2];
 		    	String direction = nextLine[3];
-		    	String start1 = nextLine[4];
-		    	String stop1 = nextLine[5];
+		    	@SuppressWarnings("unused")
+				String start1 = nextLine[4];
+		    	@SuppressWarnings("unused")
+				String stop1 = nextLine[5];
 		    	String codingStart = nextLine[6];
 		    	String codingStop = nextLine[7];
-		    	String exonCount = nextLine[8];
+		    	@SuppressWarnings("unused")
+				String exonCount = nextLine[8];
 		    	String exonStarts = nextLine[9];
 		    	String exonStops = nextLine[10];
 		    	
-		    	String gene = nextLine[12];
+		    	@SuppressWarnings("unused")
+				String gene = nextLine[12];
 		    	
 		    	if (chromosome.startsWith("chr")) {
 		    		chromosome = chromosome.substring(3);
