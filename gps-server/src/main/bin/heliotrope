@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# OS specific support.
+cygwin=false
+case "`uname`" in
+CYGWIN*) cygwin=true;;
+esac
+
+if [ -z "$JAVA_OPTS" ]
+then
+  # Set default JAVA_OPTS
+  JAVA_OPTS="-Xmx2G -XX:MaxPermSize=128M"
+  export JAVA_OPTS
+fi
+
+# The directory containing the heliotrope shell script
+HELIOTROPE_BIN_DIR=`dirname $0`
+# resolve links - $0 may be a softlink
+HELIOTROPE_DIST=$(readlink -f $HELIOTROPE_BIN_DIR/..)
+
+export HELIOTROPE_DIST
+
+export HELIOTROPE_LOG=$HELIOTROPE_HOME/logs
+
+echo "JAVA_OPTS=$JAVA_OPTS"
+echo "HELIOTROPE_HOME=$HELIOTROPE_HOME"
+echo "HELIOTROPE_DIST=$HELIOTROPE_DIST"
+
+if [ -z "$HELIOTROPE_HOME" ]
+then
+  echo "HELIOTROPE_HOME not set."
+  exit 2;
+fi
+
+if $cygwin; then
+  # For Cygwin, ensure paths are in UNIX format before anything is touched
+  [ -n "$HELIOTROPE_DIST" ] && HELIOTROPE_BIN=`cygpath --unix "$HELIOTROPE_DIST"`
+  [ -n "$HELIOTROPE_HOME" ] && HELIOTROPE_HOME=`cygpath --unix "$HELIOTROPE_HOME"`
+  
+  # For Cygwin, switch paths to Windows format before running java  
+  export HELIOTROPE_DIST=`cygpath --absolute --windows "$HELIOTROPE_DIST"`
+  export HELIOTROPE_HOME=`cygpath --absolute --windows "$HELIOTROPE_HOME"`
+fi
+
+# Java 6 supports wildcard classpath entries
+# http://download.oracle.com/javase/6/docs/technotes/tools/solaris/classpath.html
+CLASSPATH=$HELIOTROPE_HOME/conf:"$HELIOTROPE_DIST/lib/*"
+if $cygwin; then
+  CLASSPATH=$HELIOTROPE_HOME/conf;"$HELIOTROPE_DIST/lib/*"
+fi
+
+[ -e "$HELIOTROPE_HOME/logs" ] || mkdir "$HELIOTROPE_HOME/logs"
+
+JAVA_DEBUG=-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
+
+# Add $JAVA_DEBUG to this line to enable remote JVM debugging (for developers)
+java $JAVA_OPTS -cp "$CLASSPATH" -DHELIOTROPE_HOME="${HELIOTROPE_HOME}" -DHELIOTROPE_DIST=${HELIOTROPE_DIST} -DHELIOTROPE_LOG=${HELIOTROPE_LOG} org.obiba.heliotrope.server.HeliotropeServer $@

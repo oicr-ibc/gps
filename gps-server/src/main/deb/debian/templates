@@ -1,0 +1,11 @@
+Template: heliotrope-server/admin_password
+Type: password
+Description: New password for the Heliotrope "administrator" user:
+ While not mandatory, it is highly recommended that you set a password
+ for the Heliotrope "administrator" user.
+ .
+ If this field is left blank, the password will not be changed.
+
+Template: heliotrope-server/admin_password_again
+Type: password
+Description: Repeat password for the Heliotrope "administrator" user:

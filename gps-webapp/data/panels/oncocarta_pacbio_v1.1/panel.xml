@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<panel>
+  <name>OncoCarta PacBio</name>
+  <version>1.1</version>
+  <technology>PacBio</technology>
+</panel>

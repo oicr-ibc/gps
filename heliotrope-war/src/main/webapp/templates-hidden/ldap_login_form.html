@@ -1,0 +1,56 @@
+<!--
+ Licensed to the Apache Software Foundation (ASF) under one   *
+ or more contributor license agreements.  See the NOTICE file *
+ distributed with this work for additional information        *
+ regarding copyright ownership.  The ASF licenses this file   *
+ to you under the Apache License, Version 2.0 (the            *
+ "License"); you may not use this file except in compliance   *
+ with the License.  You may obtain a copy of the License at   *
+                                                              *
+   http://www.apache.org/licenses/LICENSE-2.0                 *
+                                                              *
+ Unless required by applicable law or agreed to in writing,   *
+ software distributed under the License is distributed on an  *
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY       *
+ KIND, either express or implied.  See the License for the    *
+ specific language governing permissions and limitations      *
+ under the License.                                           *
+-->
+ 
+ 
+	<div id="login-box">
+	
+		<div class="top-login"></div>
+ 
+		<div class="mid-login">
+			<div class="lift:Msgs">
+				<span class="lift:error_class">error_major</span>
+				<span class="lift:notice_msg"><span class="lift:loc">Note:</span></span>
+				<span class="lift:notice_class">note_major</span>
+            </div>
+ 
+			<form name="loginFrm" action="ldap/login" method="post" >
+				<div class="form">
+						<div class="post-form-row">
+							<label><span class="lift:loc">Username</span>:</label>
+							<input type="text" name="username" value="" class="inputBox2"/><!--narrow input field-->
+						</div>	
+						<div class="post-form-row">
+		
+							<label><span class="lift:loc">Password</span>:</label>
+							<input type="password" name="password" value="" class="inputBox2"/><!--narrow input field-->
+						</div>	
+						
+                        <input id="ldapEnabled" type="hidden" value=""/>
+
+						<div class="line"></div>
+						
+				</div>
+				<div class="login-btn">
+					<input type="submit" class="lift:attrLoc?attr=value&value=Log+in" value="Log in" />
+				</div>
+			</form>
+		</div>
+		<div class="bot-login"></div>
+		<div class="box-right"></div>
+	</div><!--login-box  "-->

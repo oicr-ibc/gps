@@ -1,0 +1,37 @@
+<div class="row-fluid">
+	<div class="span2" id="sidebar"></div>
+	<div class="span10">
+		<div class="row-fluid" id="page-header-view"></div>
+		<div class="row-fluid" id="summary-view"></div>
+		<div class="row-fluid">
+			<ul class="nav nav-tabs">
+			    <li class="active"><a href="#subjects-table-tab" data-ref="subjects" data-toggle="tab">Subjects</a></li>
+			    <li><a href="#samples-table-tab" data-ref="samples" data-toggle="tab">Samples</a></li>
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="subjects-table-tab">
+					<div class="row-fluid">
+						<h2 class="pull-left">Subjects</h2>
+						<form id="subjects-filter" class="form-horizontal pull-right search">	
+							<div class="input-prepend input-append pull-right" style="margin: 0 10px;">
+								<span class="add-on"><i class="icon-search"></i></span><input type="search" name="filter" value=""><span><span class="clear btn btn-danger">×</span><button class="btn">Search</button></span>
+							</div>
+						</form>
+					</div>
+					<div id="subjects-table"></div>
+				</div>
+				<div class="tab-pane" id="samples-table-tab">
+					<div class="row-fluid">
+						<h2 class="pull-left">Samples</h2>
+						<form id="samples-filter" class="form-horizontal pull-right search">	
+							<div class="input-prepend input-append pull-right" style="margin: 0 10px;">
+								<span class="add-on"><i class="icon-search"></i></span><input type="search" name="filter" value=""><span><span class="clear btn btn-danger">×</span><button class="btn">Search</button></span>
+							</div>
+						</form>
+					</div>
+					<div id="samples-table"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

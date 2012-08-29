@@ -1,0 +1,32 @@
+@import 'bootstrap/bootstrap.min.css';
+
+.clearfix {
+  *zoom: 1;
+}
+
+.clearfixbefore,
+.clearfixafter {
+  display: table;
+  content: "";
+}
+
+.clearfixafter {
+  clear: both;
+}
+
+body {
+  margin-top: 60px;
+  background: #fff;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h1 small {
+  font-size: 14px;
+}
+
+h2 {
+  font-size: 18px;
+}

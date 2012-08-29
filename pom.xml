@@ -1,0 +1,140 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>org.obiba.heliotrope</groupId>
+  <artifactId>heliotrope</artifactId>
+  <version>0.4.3</version>
+  <packaging>pom</packaging>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+  
+  <name>heliotrope</name>
+  <description>The module that constitutes the main heliotrope.war</description>
+  
+  <distributionManagement>
+    <site>
+      <id>localhost</id>
+      <url>file:target/site/</url>
+    </site>
+  </distributionManagement>
+  
+  <issueManagement>
+  	<system>JIRA</system>
+  	<url>https://jira.obiba.org/</url>
+  </issueManagement>
+  <developers>
+  	<developer>
+  		<id>swatt</id>
+  		<name>Stuart Watt</name>
+  		<email>stuart.watt@oicr.on.ca</email>
+  		<organization>Ontario Institute for Cancer Research</organization>
+  		<organizationUrl>http://www.oicr.on.ca/</organizationUrl>
+  		<roles>
+  			<role>developer</role>
+  		</roles>
+  	</developer>
+  	<developer>
+  		<id>vferretti</id>
+  		<name>Vincent Ferretti</name>
+  		<email>vincent.ferretti@oicr.on.ca</email>
+  		<organization>Ontario Institute for Cancer Research</organization>
+  		<organizationUrl>http://www.oicr.on.ca/</organizationUrl>
+  		<roles>
+  			<role>project lead</role>
+  		</roles>
+  	</developer>
+  	<developer>
+  		<id>plaflamme</id>
+  		<name>Philippe Laflamme</name>
+  		<email>philippe.laflamme@obiba.org</email>
+  		<organization>The OBiBa Consortium</organization>
+  		<organizationUrl>http://www.obiba.org/</organizationUrl>
+  		<roles>
+  			<role>architect</role>
+  		</roles>
+  	</developer>
+  </developers>
+  <licenses>
+    <license>
+      <name>GNU Public License version 3</name>
+      <url>LICENSE</url>
+    </license>
+  </licenses>
+
+  <modules>
+    <module>heliotrope-app</module>
+    <module>heliotrope-httpd</module>
+    <module>heliotrope-server</module>
+  </modules>
+  
+  <scm>
+  	<connection>scm:svn:https://svn.obiba.org/heliotrope</connection>
+  	<developerConnection>scm:svn:https://svn.obiba.org/heliotrope</developerConnection>
+  	<tag>HEAD</tag>
+  	<url>https://svn.obiba.org/heliotrope</url>
+  </scm>
+  <build>
+  	<defaultGoal>install</defaultGoal>
+  	
+    <resources>
+      <resource>
+        <directory>${basedir}/src/main/resources</directory>
+        <filtering>false</filtering>
+      </resource>
+      <resource>
+        <directory>${basedir}/src/filter/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.0</version>
+        <configuration>
+          <branchBase>https://svn.obiba.org/heliotrope/branches</branchBase>
+          <tagBase>https://svn.obiba.org/heliotrope/tags/releases</tagBase>
+          <!-- Use parent version as modules' version -->
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <releaseProfiles>release</releaseProfiles>
+        </configuration>
+      </plugin>
+
+    </plugins>
+
+    <testResources>
+      <testResource>
+        <directory>${project.basedir}/src/test/java</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+        <filtering>false</filtering>
+      </testResource>
+
+      <testResource>
+        <directory>${project.basedir}/src/test/resources</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <filtering>false</filtering>
+      </testResource>
+    </testResources>
+
+  </build>
+  
+</project>

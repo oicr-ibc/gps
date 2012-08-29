@@ -1,0 +1,37 @@
+<html>
+  <head><title>Studies</title></head>
+  <body class="lift:content_id=main">
+    <div id="main" class="lift:surround?with=default;at=content">
+      <!-- the behavior of the div -->
+      <h3><span class="lift:Menu.title">Study</span></h3>
+      
+      <ul class="lift:StudyMenu"><li><a href="yyy">XXX</a></li></ul>
+      
+      <div class="lift:StudyProperties">
+      
+        <div class="display_block ui-widget">
+          <div class="ui-widget-header">General info</div>
+          <table class="ui-widget-content">
+            <tr><td>Code:</td><td><span class="study_title">Code here</span></td></tr>
+            <tr><td>Description:</td><td><span class="study_description">Description here</span></td></tr>
+          </table>
+        </div>
+      
+        <div class="display_block ui-widget">
+          <div class="ui-widget-header">Summary</div>
+          <table class="ui-widget-content">
+            <tr><td># patients:</td><td><span class="study_number_patients"># patients here</span>
+              (<div class="lift:Menu.item?name=studySubjects">show list</div>)</td></tr>
+            <tr><td>Last enrolled:</td><td><span class="study_last_enrolled">Last enrolled here</span></td></tr>
+            <tr><td># samples:</td><td><span class="study_number_samples"># samples here</span></td></tr>
+            <tr><td># assays:</td><td><span class="study_number_assays"># assays here</span></td></tr>
+            <tr><td># observed mutations:</td><td><span class="study_number_observed_mutations"># observed mutations here</span></td></tr>
+          </table>
+        </div>
+      </div>
+      
+      <div class="lift:Menu.item?name=study">show list</div>
+
+    </div>
+  </body>
+</html>

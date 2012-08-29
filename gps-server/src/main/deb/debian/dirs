@@ -1,0 +1,9 @@
+# This is where HELIOTROPE_HOME is located
+var/lib/heliotrope
+
+# Store heliotrope log here
+var/log/heliotrope
+
+# And dbcommon-config directories
+usr/share/dbconfig-common/data/heliotrope/install
+usr/share/dbconfig-common/data/heliotrope/upgrade/mysql
