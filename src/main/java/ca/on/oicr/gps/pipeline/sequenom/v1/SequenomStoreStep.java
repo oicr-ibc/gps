@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
@@ -23,8 +24,10 @@ import ca.on.oicr.gps.pipeline.model.PipelineState;
 
 public class SequenomStoreStep implements PipelineStep {
 	
-	Pattern p = Pattern.compile("^[ACGT]*$");
+	private static final Pattern p = Pattern.compile("^[ACGT]*$");
 	
+	private static final Pattern panelPattern = Pattern.compile("([A-Za-z-_]+) v(\\d+)(?:[._-](\\d+))?");
+
 	class SequenomMutation {
 		public SequenomMutation() {};
 		String chromosome;
@@ -113,9 +116,26 @@ public class SequenomStoreStep implements PipelineStep {
 			
 			table.get(assoc).add(row);
 			
+			String panelHeaderName = row.getPanelScreened();
+			Matcher m = panelPattern.matcher(panelHeaderName);
+			String panelName = "OncoCarta";
+			String panelMajorVersion = "1";
+			String panelMinorVersion = "0";
+			if (m.matches()) {
+				panelName = m.group(1);
+				panelMajorVersion = m.group(2);
+				if (m.group(3) != null) {
+					panelMinorVersion = m.group(3);
+				}
+			} else {
+				state.error("data.invalid.panel", panelHeaderName);
+				return;
+			}
+
+			String panelVersion = panelMajorVersion + "." + panelMinorVersion + "." + "0";
 			try {
 				if (! processTable.containsKey(runId)) {
-					DomainProcess process = domainFacade.newProcess(runId, "OncoCarta", "1.0.0");
+					DomainProcess process = domainFacade.newProcess(runId, panelName, panelVersion);
 					process.setChipcode(chipBarcode);
 					processTable.put(runId, process);
 				}
