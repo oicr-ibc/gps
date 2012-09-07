@@ -128,6 +128,7 @@ public class SequenomStoreStep implements PipelineStep {
 					panelMinorVersion = m.group(3);
 				}
 			} else {
+				log.error("Invalid panel: " + panelHeaderName);
 				state.error("data.invalid.panel", panelHeaderName);
 				return;
 			}
@@ -135,15 +136,21 @@ public class SequenomStoreStep implements PipelineStep {
 			String panelVersion = panelMajorVersion + "." + panelMinorVersion + "." + "0";
 			try {
 				if (! processTable.containsKey(runId)) {
+					log.debug("Creating process for panel: " + panelName + ", " + panelVersion);
 					DomainProcess process = domainFacade.newProcess(runId, panelName, panelVersion);
+					log.debug("Got process: " + process);
+					assert process != null;
 					process.setChipcode(chipBarcode);
 					processTable.put(runId, process);
+					log.debug("Installed process: " + process + " for runid: " + runId);
 				}
 			} catch (PipelineException e) {
 				state.error(e.getError());
 				continue;
 			}
 		}
+		
+		log.debug("Done building process table");
 		
 		/*
 		 * At this stage we have merged the mutations into a tree map, and can generate 
@@ -157,6 +164,10 @@ public class SequenomStoreStep implements PipelineStep {
 			List<SequenomSubmissionRow> rows = table.get(assoc);
 			String runId = assoc.getRunId();
 			DomainProcess process = processTable.get(runId);
+			if (process == null) {
+				log.debug("Skipping adding for to missing process; runId: " + runId);
+				continue;
+			}
 			try {
 				addSequenomData(state, process, assoc, rows);
 			} catch (PipelineException e) {
@@ -177,6 +188,8 @@ public class SequenomStoreStep implements PipelineStep {
 	}
 
 	private void addSequenomData(PipelineState state, DomainProcess process, SequenomAssociation assoc, List<SequenomSubmissionRow> rows) throws PipelineException {
+		
+		log.debug("Calling addSequenomData: process: " + process);
 		
 		DomainFacade domainFacade = state.getDomainFacade();
 
