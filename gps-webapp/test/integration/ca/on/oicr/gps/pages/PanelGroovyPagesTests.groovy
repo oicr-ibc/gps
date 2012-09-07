@@ -33,7 +33,7 @@ class PanelGroovyPagesTests extends GroovyPagesTestCase {
 	 */
     void testShowSolidPanel() {
 		
-		def panel = Panel.findByNameAndVersionString("Solid", "1.0.0")
+		def panel = Panel.findByNameAndVersionString("SolidTumor", "1.0.0")
 		panelController.params.id = panel.id
 		def model = panelController.show()
 		

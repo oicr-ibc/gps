@@ -508,6 +508,28 @@ class PipelineServiceTests extends PipelineTestCase {
     }
 	
 	/**
+	 * Tests that a Sequenom file that refers to an unknown patient is flagged as an 
+	 * error. 
+	 */
+
+    void testPipelineServiceSequenomInvalidPanel() {
+
+		def source = createSubmission('Sequenom', "test/data/sequenom_test_fail_04.xls")
+		def state = pipelineService.getPipelineState(source)
+		assertNotNull(state)
+		
+		shouldFail (PipelineRuntimeException) {
+			pipelineService.runPipeline(state)
+		}
+		
+		def errors = state.errors
+		assertEquals(3, errors.size())
+		assertEquals("data.unknown.panel", errors[0].key)
+		assertEquals("data.unknown.panel", errors[1].key)
+		assertEquals("data.unknown.panel", errors[2].key)
+    }
+	
+	/**
 	 * Tests that a Sequenom file that refers to an unknown sample is flagged as an 
 	 * error. 
 	 */

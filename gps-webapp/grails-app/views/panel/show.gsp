@@ -37,6 +37,7 @@
                        <tr>         
                           <th>Gene</th>
                           <th>Chromosome</th>
+                          <th>Mutation</th>
                           <th>Start</th>
                           <th>Stop</th>
                           <th>Ref. Allele</th>
@@ -48,6 +49,7 @@
 		                	<tr>
 		                		<td>${fieldValue(bean: targetInstance, field: "gene")}</td>
 		                		<td>${fieldValue(bean: targetInstance, field: "chromosome")}</td>
+                        <td>${fieldValue(bean: targetInstance, field: "mutation")}</td>
 		                		<td>${fieldValue(bean: targetInstance, field: "start")}</td>
 		                		<td>${fieldValue(bean: targetInstance, field: "stop")}</td>
                         <td>${fieldValue(bean: targetInstance, field: "refAllele")}</td>

@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.obiba.heliotrope</groupId>
     <artifactId>heliotrope</artifactId>
-    <version>0.4.3</version>
+    <version>0.4.4</version>
   </parent>
 
 	<artifactId>heliotrope-app</artifactId>
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>ca.on.oicr</groupId>
 			<artifactId>gps-variant-parser</artifactId>
-			<version>0.0.2-RELEASE</version>
+			<version>0.0.4-RELEASE</version>
 			<scope>runtime</scope>
 
 		</dependency>

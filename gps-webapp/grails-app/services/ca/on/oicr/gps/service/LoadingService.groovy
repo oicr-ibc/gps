@@ -233,7 +233,7 @@ class LoadingService {
 				XmlParser parser = new XmlParser()
 				Node root = parser.parse(input)
 		 
-				log.info("Loading COSMIC frequency data")
+				log.debug("Loading COSMIC frequency data")
 				
 				Map<String, Integer> tumourTypeTable = [:]
 				Map<String, Integer> geneTable = [:]
@@ -417,7 +417,7 @@ class LoadingService {
 			    XmlParser parser = new XmlParser()
 			    Node root = parser.parse(input)
 			   
-  			    log.info("Loading knowledge base")
+  			    log.debug("Loading knowledge base")
 				Map<String, Integer> tumourTypeTable = [:]
 				Map<String, Integer> geneTable = [:]
 				 

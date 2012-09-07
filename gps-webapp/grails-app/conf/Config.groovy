@@ -135,7 +135,7 @@ log4j = {
 		   'org.springframework.security',
 		   'org.springframework.ldap'
 	
-	trace  'grails.app.controller',
+	info   'grails.app.controller',
 	       'grails.app.service',
 		   'grails.app.domain',
 		   'ca.on.oicr.gps',

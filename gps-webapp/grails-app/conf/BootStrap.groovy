@@ -73,9 +73,9 @@ class BootStrap {
 		assert oncoCartaSangerPanelFile.exists()
 		loadingService.loadPanelAndTargets("OncoCartaSanger", "1.0.0", "ABI", oncoCartaSangerPanelFile)
 
-		def solidPanelFile = new File('data/panels/solid_v1.0/panel_targets.csv')
+		def solidPanelFile = new File('data/panels/solidtumor_v1.0/panel_targets.csv')
 		assert solidPanelFile.exists()
-		loadingService.loadPanelAndTargets("Solid", "1.0.0", "Sequenom", solidPanelFile)
+		loadingService.loadPanelAndTargets("SolidTumor", "1.0.0", "Sequenom", solidPanelFile)
 	}
 	
 	def loadMutations() {

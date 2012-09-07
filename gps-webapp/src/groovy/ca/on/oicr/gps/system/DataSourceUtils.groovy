@@ -31,9 +31,9 @@ class DataSourceUtils {
         }
 
         if (log.infoEnabled) {
-            log.info "Configured Datasource properties:"
+            log.debug "Configured Datasource properties:"
             ctx.dataSourceUnproxied.properties.findAll {k, v -> !k.contains('password') }.each {p ->
-                log.info "  $p"
+                log.debug "  $p"
             }
         }
     }
