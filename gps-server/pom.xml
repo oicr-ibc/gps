@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.obiba.heliotrope</groupId>
     <artifactId>heliotrope</artifactId>
-    <version>0.4.4</version>
+    <version>0.4.5</version>
   </parent>
 
   <artifactId>heliotrope-server</artifactId>
