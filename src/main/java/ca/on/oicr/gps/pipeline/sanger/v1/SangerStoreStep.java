@@ -128,11 +128,13 @@ public class SangerStoreStep implements PipelineStep {
 			List<SangerSubmissionRow> rows = table.get(assoc);
 			String runId = assoc.getRunId();
 			DomainProcess process = processTable.get(runId);
-			try {
-				addSangerData(state, process, assoc, rows);
-			} catch (PipelineException e) {
-				state.error(e.getError());
-				continue;
+			if (process != null) {
+				try {
+					addSangerData(state, process, assoc, rows);
+				} catch (PipelineException e) {
+					state.error(e.getError());
+					continue;
+				}
 			}
 		}
 		
