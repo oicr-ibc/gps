@@ -106,7 +106,7 @@ public class SangerStoreStep implements PipelineStep {
 			
 			try {
 				if (! processTable.containsKey(runId)) {
-					DomainProcess process = domainFacade.newProcess(runId, "OncoCarta Sanger", "1.0.0");
+					DomainProcess process = domainFacade.newProcess(runId, "Sanger", "1.0.0");
 					process.setChipcode(seqNum);
 					processTable.put(runId, process);
 				}
