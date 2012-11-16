@@ -184,7 +184,7 @@ public class SangerStoreStep implements PipelineStep {
 			// during reporting. 
 			
 			Status status = row.getStatus();
-			if (status == null || status == Status.NO) {
+			if (status == null || status == Status.NO || status == Status.UNKNOWN) {
 				continue;
 			}
 			
