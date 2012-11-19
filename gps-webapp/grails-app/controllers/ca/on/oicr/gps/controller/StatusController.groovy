@@ -70,7 +70,7 @@ SELECT CONCAT(MONTHNAME(s.consent_date), ' ', YEAR(s.consent_date)) AS date,
         JOIN sample s ON s.subject_id = sub.id
         JOIN run_sample rs ON rs.sample_id = s.id
         JOIN observed_mutation om ON om.run_sample_id = rs.id
-        JOIN reportable_mutation_observed_mutation rmom ON rmom.observed_mutation_id = OM.id
+        JOIN reportable_mutation_observed_mutation rmom ON rmom.observed_mutation_id = om.id
         JOIN reportable_mutation rm ON rmom.reportable_mutation_observed_mutations_id = rm.id
         LEFT JOIN known_mutation km ON om.known_mutation_id = km.id
         WHERE rm.actionable
