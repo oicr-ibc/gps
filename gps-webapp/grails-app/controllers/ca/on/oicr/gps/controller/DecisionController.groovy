@@ -81,7 +81,7 @@ class DecisionController {
 		}
 		assert subject
 		
-		params.remove('_subject')
+		params.put('date', new Date().parse("dd/MM/yyyy", params.remove('date')))
 		
         def decisionInstance = new Decision(params)
 		
@@ -120,7 +120,7 @@ class DecisionController {
 		}
 		
 		decisionInstance.subject = subject
-		decisionInstance.date = new Date()
+		//decisionInstance.date = new Date()
 		subject.addToDecisions(decisionInstance)
 		subject.save()
 		

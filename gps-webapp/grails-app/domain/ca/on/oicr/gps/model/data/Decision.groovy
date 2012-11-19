@@ -23,7 +23,7 @@ class Decision {
 	Boolean noMutationsFound = false
 	Boolean unanimous = true
 
-	Date date
+	Date date = new Date()
 	String decision = ""
 	String decisionType
 	
@@ -48,7 +48,7 @@ class Decision {
 		String type = decisionType
 		type = type.substring(0, 1).toUpperCase() + type.substring(1)
 		
- 		final DateTimeFormatter fmt = DateTimeFormat.forPattern("d MMMM yyyy h:mma");
+ 		final DateTimeFormatter fmt = DateTimeFormat.forPattern("d MMMM yyyy");
 		String dateString = fmt.print(new DateTime(date))
 		String text = getText()
 
