@@ -136,6 +136,7 @@ class DecisionControllerTests extends ControllerUnitTestCase {
 		controller.params.levelOfEvidenceGene = ['Level V', 'Level III']
 		controller.params.comment = ['comment1', 'comment 2']
 		controller.params.justification = ['justification1', 'justification2']
+		controller.params.date = "01/02/2012"
 	}
 	
 	void testWithdrawPrevious() {

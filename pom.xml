@@ -3,7 +3,7 @@
   
   <groupId>org.obiba.heliotrope</groupId>
   <artifactId>heliotrope</artifactId>
-  <version>0.4.6</version>
+  <version>0.4.7</version>
   <packaging>pom</packaging>
   
   <properties>

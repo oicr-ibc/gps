@@ -122,6 +122,6 @@ class DecisionTests extends GrailsUnitTestCase {
 	
 	void testDate() {
 		def summary = decision.summary
-		assertEquals "Final report: 1 March 2012 12:01PM", summary
+		assertEquals "Final report: 1 March 2012", summary
 	}
 }
