@@ -119,26 +119,26 @@ var modelPsychosocial =     {name:'summary.psychosocial', index:'summary.psychos
 							 }};
 var modelPrimaryPhysician = {name:'summary.primaryPhysician', index:'summary.primaryPhysician', width:70, editable: allowEditing};
 var modelPrimaryTumorSite = {name:'summary.primaryTumorSite', index:'summary.primaryTumorSite', width:95, editable: allowEditing};
-var modelConsentDate = 		{name:'summary.consentDate', index:'summary.consentDate', width: 90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y',
+var modelConsentDate = 		{name:'summary.consentDate', index:'summary.consentDate', width: 90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
-var modelBiopsyDate = 		{name:'summary.biopsyDate', index:'summary.biopsyDate', width: 90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y',
+var modelBiopsyDate = 		{name:'summary.biopsyDate', index:'summary.biopsyDate', width: 90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
 var modelBiopsySite = 		{name:'summary.biopsySite', index:'summary.biopsySite', width: 90, editable: allowEditing};
 var modelBiopsyCores = 		{name:'summary.biopsyCores', index:'summary.biopsyCores', width: 60, editable: allowEditing};
-var modelPathologyArrivalDate = {name:'summary.pathologyArrivalDate', index:'summary.pathologyArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y',
+var modelPathologyArrivalDate = {name:'summary.pathologyArrivalDate', index:'summary.pathologyArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
-var modelSequenomArrivalDate = {name:'summary.sequenomArrivalDate', index:'summary.sequenomArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y',
+var modelSequenomArrivalDate = {name:'summary.sequenomArrivalDate', index:'summary.sequenomArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
-var modelPacbioArrivalDate =  {name:'summary.pacbioArrivalDate', index:'summary.pacbioArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y',
+var modelPacbioArrivalDate =  {name:'summary.pacbioArrivalDate', index:'summary.pacbioArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
-var modelMedidataUploadDate =  {name:'summary.medidataUploadDate', index:'summary.medidataUploadDate', width:90, editable: true, formatter: 'date', datefmt: 'd/m/Y',
+var modelMedidataUploadDate =  {name:'summary.medidataUploadDate', index:'summary.medidataUploadDate', width:90, editable: true, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
-var modelArchivalArrivalDate =  {name:'summary.archivalArrivalDate', index:'summary.archivalArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y',
+var modelArchivalArrivalDate =  {name:'summary.archivalArrivalDate', index:'summary.archivalArrivalDate', width:90, editable: allowEditing, formatter: 'date', datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'},
 	   						 editoptions: {size: 11, maxlength: 11, dataInit: dateHandler}, editrules: {date: true, required: false}};
 var modelExpertPanelDecisionDate =
 						  	{name:'firstDecisionDate', index:'firstDecisionDate', width:90, editable: false, 
 						  	 formatter: 'date', 
-						  	 datefmt: 'd/m/Y'
+						  	 datefmt: 'd/m/Y', formatoptions: {newformat: 'd/m/Y'}
 	   						 };
 var modelExpertPanelDecision = 
 							{name:'renderedDecision', index:'renderedDecision', width:140, editable: false,
