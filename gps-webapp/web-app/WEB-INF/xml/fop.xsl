@@ -9,13 +9,7 @@
 		<fo:root writing-mode="lr-tb" hyphenate="false" text-align="start" role="html:html">
 			<fo:layout-master-set>
 				<fo:simple-page-master page-width="auto" page-height="auto" master-name="all-pages">
-					<fo:region-body column-gap="12pt" column-count="1" margin-left="1in" margin-bottom="1in" margin-right="1in" margin-top="1in">
-						<xsl:if test="html:head/html:meta[@name = 'draft']">
-							<xsl:attribute name="background-image">
-	         		    		<xsl:text>url('images/draft.svg')</xsl:text>
-	                  		</xsl:attribute>
-	                  	</xsl:if>
-					</fo:region-body>
+					<fo:region-body column-gap="12pt" column-count="1" margin-left="1in" margin-bottom="1in" margin-right="1in" margin-top="1in"></fo:region-body>
 					<fo:region-before display-align="before" extent="1in" region-name="page-header" />
 					<fo:region-after display-align="after" extent="1in" region-name="page-footer" />
 					<fo:region-start extent="1in" />
