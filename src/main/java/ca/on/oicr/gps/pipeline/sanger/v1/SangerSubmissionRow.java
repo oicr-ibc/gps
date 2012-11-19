@@ -18,7 +18,7 @@ public class SangerSubmissionRow {
 	}
 
 	public enum Status {
-		NO, YES, UNKNOWN
+		NO, YES, UNKNOWN, FAILED
 	}
 
 	private String patientId;

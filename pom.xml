@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.on.oicr</groupId>
 	<artifactId>gps-variant-parser</artifactId>
-	<version>0.0.7-RELEASE</version>
+	<version>0.0.8-RELEASE</version>
 
 	<name>gps-variant-parser</name>
 	<description>Variant file parser for GPS</description>
