@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>ca.on.oicr</groupId>
 			<artifactId>gps-variant-parser</artifactId>
-			<version>0.0.6-RELEASE</version>
+			<version>0.0.7-RELEASE</version>
 			<scope>runtime</scope>
 
 		</dependency>

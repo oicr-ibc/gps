@@ -29,7 +29,7 @@ grails.project.dependency.resolution = {
         runtime 'mysql:mysql-connector-java:5.1.20'
 		compile 'joda-time:joda-time:1.6.2'
 		compile 'net.sf.opencsv:opencsv:2.0'
-		compile 'ca.on.oicr:gps-variant-parser:0.0.6-RELEASE'
+		compile 'ca.on.oicr:gps-variant-parser:0.0.8-RELEASE'
 		
 		// On Java 6 at least, this is needed to avoid a conflict
 		compile('org.apache.xmlgraphics:fop:0.93') {
