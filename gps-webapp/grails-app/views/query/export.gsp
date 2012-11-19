@@ -1,6 +1,5 @@
 <%@ page import="ca.on.oicr.gps.model.reporting.Query" %><%@ page import="org.apache.commons.lang.time.DateFormatUtils" %><?xml version="1.0" encoding="UTF-8"?>
-<g:set var="rsmd" value="${resultSet.getMetaData()}"/>
-<g:set var="numberOfColumns" value="${rsmd.getColumnCount()}"/>
+<g:set var="numberOfColumns" value="${resultSet.getColumnCount()}"/>
 <ss:Workbook xmlns:ss='urn:schemas-microsoft-com:office:spreadsheet'>
 	<ss:Styles>
 		<ss:Style ss:ID='date1'>
@@ -14,7 +13,7 @@
     		<ss:Row>
 				<g:each var="i" in="${(1..numberOfColumns)}">
     				<ss:Cell>
-						<ss:Data ss:Type='String'>${rsmd.getColumnLabel(i)}</ss:Data>
+						<ss:Data ss:Type='String'>${resultSet.getColumnLabel(i)}</ss:Data>
     				</ss:Cell>
     			</g:each>
     		</ss:Row>

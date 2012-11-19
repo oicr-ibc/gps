@@ -1,7 +1,6 @@
 
 <%@ page import="ca.on.oicr.gps.model.reporting.Query" %>
-<g:set var="rsmd" value="${resultSet.getMetaData()}"/>
-<g:set var="numberOfColumns" value="${rsmd.getColumnCount()}"/>
+<g:set var="numberOfColumns" value="${resultSet.getColumnCount()}"/>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -24,7 +23,7 @@
     		<thead>
     			<g:each var="i" in="${(1..numberOfColumns) }">
     				<th>
-    					${rsmd.getColumnLabel(i)}
+    					${resultSet.getColumnLabel(i)}
     				</th>
     			</g:each>
     		</thead>
