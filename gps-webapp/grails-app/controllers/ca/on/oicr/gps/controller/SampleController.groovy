@@ -57,13 +57,14 @@ class SampleController {
 		// First locate the subject
 		log.info("Locating patientId: " + params.patientId)
 		def subjectInstance = Subject.findByPatientId(params.patientId)
-		assert subjectInstance
 		
 		params.remove('patientId')
 		
         def sampleInstance = new Sample(params)
 		sampleInstance.dateCreated = new Date()
-		subjectInstance.addToSamples(sampleInstance)
+		if (subjectInstance != null) {
+			subjectInstance.addToSamples(sampleInstance)
+		}
 		
 		log.info("Creating new sample: barcode: " + sampleInstance.barcode)
         if (sampleInstance.save(flush: true)) {
