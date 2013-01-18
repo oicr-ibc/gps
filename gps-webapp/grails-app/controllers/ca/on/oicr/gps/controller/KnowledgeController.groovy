@@ -921,6 +921,8 @@ jQuery(function() {
 
 		log.info("Recording confirmation; mutation: ${mutation.toLabel()}, user: ${confirm.userName}, date: ${confirm.date}")
 		mutation.addToConfirmations(confirm)
+		mutation.lastUpdated = confirm.date		
+		mutation.lastEditedBy = confirm.name
 		
 		// At this stage, the model is complete even if not yet formally persisted. This
 		// should allow us to generate the XML and PDF, before we store them in the confirmation

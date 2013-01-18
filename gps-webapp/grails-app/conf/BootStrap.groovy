@@ -24,9 +24,9 @@ class BootStrap {
 	def init = { servletContext ->
 		DataSourceUtils.tune(servletContext)
 		
-		switch (Environment.current) {
+		switch (Environment.current.getName()) {
 			
-			case Environment.DEVELOPMENT:
+			case ['development']:
 				seedTestUsers()
 				seedTestConfig()
 				seedTestData()
@@ -34,7 +34,7 @@ class BootStrap {
 				seedTestKnowledgeBase()
 				break;
 			
-			case Environment.TEST:
+			case ['test']:
 				seedTestUsers()
 				seedTestConfig()
 				seedTestData()
@@ -42,7 +42,10 @@ class BootStrap {
 				seedTestKnowledgeBase()
 				break;
 			
-			case Environment.PRODUCTION:
+			case ['production']:
+				break;
+				
+			case ['staging']:
 				break;
 		}
 	}
@@ -111,6 +114,17 @@ class BootStrap {
 		if (!adminUser.authorities.contains(adminRole)) {
 			SecUserSecRole.create adminUser, adminRole
 		}
+
+		// This can be useful when working away, as it creates a user with my username
+		// and a trivial password, handy for faking login details on reports.
+		
+//		def developerUser = SecUser.findByUsername('swatt') ?: new SecUser(
+//			username: 'swatt',
+//			password: springSecurityService.encodePassword('swatt'),
+//			enabled: true).save(failOnError: true)
+//		if (!developerUser.authorities.contains(adminRole)) {
+//			SecUserSecRole.create developerUser, adminRole
+//		}
 
 		// Added a manager role: this is someone who is allowed to manage the
 		// patient information, and view most of the rest of the system.
