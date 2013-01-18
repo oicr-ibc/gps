@@ -48,6 +48,7 @@ class ReportControllerTests extends ControllerUnitTestCase {
 		mockDomain(ReportDocument)
 
 		Report report = new Report()
+		report.generated = new Date()
 		report.document = new ReportDocument()
 		report.document.type = "text/xml"
 		report.document.body = reportXML.getBytes()

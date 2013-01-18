@@ -6,6 +6,7 @@ import org.htmlparser.filters.TagNameFilter
 
 import ca.on.oicr.gps.controller.PipelineController;
 import ca.on.oicr.gps.controller.SubmissionController;
+import ca.on.oicr.gps.controller.SummaryController;
 import ca.on.oicr.gps.model.data.Subject;
 import ca.on.oicr.gps.model.data.Submission;
 import ca.on.oicr.gps.model.data.Summary;
@@ -132,5 +133,22 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		// Throw this into an HTML parser for testing
 		def parser = new Parser(htmlString)
 		def nodes = parser.parse(null)
+	}
+
+	void testListOfMutations() {
+		def file = new File("grails-app/views/summary/mutations.gsp")
+
+		def summaryController = new SummaryController()
+		def model = summaryController.mutations()
+		
+		def htmlString = applyTemplate(file.text, model)
+		
+		// Throw this into an HTML parser for testing
+		def parser = new Parser(htmlString)
+		def nodes = parser.parse(null)
+		
+		// Now check we have some data
+		def rows = nodes.extractAllNodesThatMatch(new TagNameFilter("tr"), true)
+		assertTrue(rows.size > 1)
 	}
 }
