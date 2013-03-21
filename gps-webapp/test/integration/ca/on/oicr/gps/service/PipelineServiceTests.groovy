@@ -60,11 +60,11 @@ class PipelineServiceTests extends PipelineTestCase {
 		assertEquals(3, runs.size())
 		
 		// Three runs will be Sequenom, but let's simply choose one by chip code,
-		// doesn;t much matter which, as they both contain one sample
-		Process sr1 = Process.findByChipcode("G0691483")
+		// doesn't much matter which, as they both contain one sample
+		Process sr1 = Process.findByChipcode("G0301483")
 		assertNotNull(sr1)
 		assertEquals("Sequenom", sr1.panel.technology)
-		assertEquals("G0691483", sr1.getChipcode())
+		assertEquals("G0301483", sr1.getChipcode())
 		
 		def runSamples = sr1.runSamples
 		assertEquals(1, runSamples.size())
@@ -75,10 +75,10 @@ class PipelineServiceTests extends PipelineTestCase {
 			assertNotNull(runSample.sample.subject)
 		}
 		
-		Process sr2 = Process.findByChipcode("G0698756")
+		Process sr2 = Process.findByChipcode("G0302756")
 		assertNotNull(sr2)
 		assertEquals("Sequenom", sr2.panel.technology)
-		assertEquals("G0698756", sr2.getChipcode())
+		assertEquals("G0302756", sr2.getChipcode())
 		
 		runSamples = sr2.runSamples
 		assertEquals(1, runSamples.size())
@@ -93,11 +93,11 @@ class PipelineServiceTests extends PipelineTestCase {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(sr1.getDate())
 		assertEquals(2011, cal.get(Calendar.YEAR))
-		assertEquals(3, cal.get(Calendar.MONTH))
-		assertEquals(20, cal.get(Calendar.DATE))
+		assertEquals(4, cal.get(Calendar.MONTH))
+		assertEquals(12, cal.get(Calendar.DATE))
 
-		assertEquals(1, Subject.findByPatientId("GEN-002").reports.size())
-		assertEquals(1, Subject.findByPatientId("GEN-003").reports.size())
+		assertEquals(1, Subject.findByPatientId("TST-001").reports.size())
+		assertEquals(1, Subject.findByPatientId("TST-002").reports.size())
 
 		// Sequenom, patient count will be more interesting
 		List<Subject> patients = source.getPatients()
@@ -138,10 +138,10 @@ class PipelineServiceTests extends PipelineTestCase {
 		
 		// Both runs will be Sequenom, so let's simply choose one by chip code
 		// Doesn't matter which we get
-		Process sr1 = Process.findByChipcode("G0696400")
+		Process sr1 = Process.findByChipcode("G0207400")
 		assertNotNull(sr1)
 		assertEquals("Sequenom", sr1.panel.technology)
-		assertEquals("G0696400", sr1.getChipcode())
+		assertEquals("G0207400", sr1.getChipcode())
 		
 		def runSamples = sr1.runSamples
 		assertEquals(1, runSamples.size())
@@ -156,11 +156,11 @@ class PipelineServiceTests extends PipelineTestCase {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(sr1.getDate())
 		assertEquals(2011, cal.get(Calendar.YEAR))
-		assertEquals(4, cal.get(Calendar.MONTH))
-		assertEquals(19, cal.get(Calendar.DATE))
+		assertEquals(6, cal.get(Calendar.MONTH))
+		assertEquals(12, cal.get(Calendar.DATE))
 
-		assertEquals(0, Subject.findByPatientId("GEN-002").reports.size())
-		assertEquals(1, Subject.findByPatientId("GEN-003").reports.size())
+		assertEquals(0, Subject.findByPatientId("TST-002").reports.size())
+		assertEquals(1, Subject.findByPatientId("TST-003").reports.size())
     }
 
 	/**
@@ -184,32 +184,18 @@ class PipelineServiceTests extends PipelineTestCase {
 		// Both runs will be Sanger, but let's simply choose one by runId. Since the
 		// Sanger template doesn't define a runId, we cannot really use these in
 		// testing. 
-		Process sr1 = Process.findByRunId("PMH002BIOXFOR1")
+		Process sr1 = Process.findByRunId("TST002BIOXFOR1")
 		assertNotNull(sr1)
 		assertEquals("ABI", sr1.panel.technology)
-		assertEquals("PMH002BIOXFOR1", sr1.getRunId())
+		assertEquals("TST002BIOXFOR1", sr1.getRunId())
 		
 		def runSamples = sr1.runSamples
 		assertEquals(1, runSamples.size())
 		
-		for(RunSample runSample in runSamples) {
-			assertNotNull(runSample)
-			assertNotNull(runSample.sample)
-			assertNotNull(runSample.sample.subject)
-		}
-		
-		Process sr2 = Process.findByRunId("PMH003BIOXFRZ1")
-		assertNotNull(sr2)
-		assertEquals("ABI", sr2.panel.technology)
-		assertEquals("PMH003BIOXFRZ1", sr2.getRunId())
-		
-		runSamples = sr2.runSamples
-		assertEquals(1, runSamples.size())
-		
-		for(RunSample runSample in runSamples) {
-			assertNotNull(runSample)
-			assertNotNull(runSample.sample)
-			assertNotNull(runSample.sample.subject)
+		for(RunSample rs in runSamples) {
+			assertNotNull(rs)
+			assertNotNull(rs.sample)
+			assertNotNull(rs.sample.subject)
 		}
 		
 		RunSample runSample = runSamples.iterator().next()
@@ -218,12 +204,26 @@ class PipelineServiceTests extends PipelineTestCase {
 		ObservedMutation mut = runSample.mutations.iterator().next()
 		assertEquals("PIK3CA", mut.knownMutation.gene)
 
+		Process sr2 = Process.findByRunId("TST001BIO2FRZ2")
+		assertNotNull(sr2)
+		assertEquals("ABI", sr2.panel.technology)
+		assertEquals("TST001BIO2FRZ2", sr2.getRunId())
+		
+		runSamples = sr2.runSamples
+		assertEquals(1, runSamples.size())
+		
+		for(RunSample rs in runSamples) {
+			assertNotNull(rs)
+			assertNotNull(rs.sample)
+			assertNotNull(rs.sample.subject)
+		}
+		
 		// Unpack and check the date
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(sr1.getDate())
 		assertEquals(2011, cal.get(Calendar.YEAR))
-		assertEquals(3, cal.get(Calendar.MONTH))
-		assertEquals(20, cal.get(Calendar.DATE))
+		assertEquals(4, cal.get(Calendar.MONTH))
+		assertEquals(12, cal.get(Calendar.DATE))
     }
 
 	/**
@@ -247,10 +247,10 @@ class PipelineServiceTests extends PipelineTestCase {
 		// Both runs will be Sanger, but let's simply choose one by runId. Since the
 		// Sanger template doesn't define a runId, we cannot really use these in
 		// testing. 
-		Process sr1 = Process.findByRunId("PMH002BIOXFOR1")
+		Process sr1 = Process.findByRunId("TST002BIOXFOR2")
 		assertNotNull(sr1)
 		assertEquals("ABI", sr1.panel.technology)
-		assertEquals("PMH002BIOXFOR1", sr1.getRunId())
+		assertEquals("TST002BIOXFOR2", sr1.getRunId())
 		
 		def runSamples = sr1.runSamples
 		assertEquals(1, runSamples.size())
@@ -261,10 +261,10 @@ class PipelineServiceTests extends PipelineTestCase {
 			assertNotNull(runSample.sample.subject)
 		}
 		
-		Process sr2 = Process.findByRunId("PMH003BIOXFOR1")
+		Process sr2 = Process.findByRunId("TST003BIOXFOR2")
 		assertNotNull(sr2)
 		assertEquals("ABI", sr2.panel.technology)
-		assertEquals("PMH003BIOXFOR1", sr2.getRunId())
+		assertEquals("TST003BIOXFOR2", sr2.getRunId())
 		
 		runSamples = sr2.runSamples
 		assertEquals(1, runSamples.size())
@@ -279,8 +279,8 @@ class PipelineServiceTests extends PipelineTestCase {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(sr1.getDate())
 		assertEquals(2011, cal.get(Calendar.YEAR))
-		assertEquals(3, cal.get(Calendar.MONTH))
-		assertEquals(20, cal.get(Calendar.DATE))
+		assertEquals(4, cal.get(Calendar.MONTH))
+		assertEquals(12, cal.get(Calendar.DATE))
     }
 
     void testPipelineServicePacBio1() {
@@ -309,7 +309,7 @@ class PipelineServiceTests extends PipelineTestCase {
 			assertNotNull(runSample.sample)
 		}
 
-		assertEquals(1, Subject.findByPatientId("GEN-003").reports.size())
+		assertEquals(1, Subject.findByPatientId("TST-002").reports.size())
 
 		// Old style PacBio, the patient count must always be one
 		Integer patientCount = source.getPatientCount()

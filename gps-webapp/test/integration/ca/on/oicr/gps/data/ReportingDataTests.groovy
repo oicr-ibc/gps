@@ -31,20 +31,19 @@ class ReportingDataTests extends PipelineTestCase {
 	
     void testGenerateReportData() {
 		
-		def sj3 = Subject.findByPatientId("GEN-003")
+		def sj3 = Subject.findByPatientId("TST-002")
+		assertNotNull(sj3)
 		def data = sj3.getSubjectMutationReportData()
 		
 		assertNotNull(data.getAt('FFPE'))
 		assertEquals(2, data.getAt('FFPE').size())
 
-		assertNotNull(data.getAt('Frozen'))
-		assertEquals(1, data.getAt('Frozen').size())
+		assertNull(data.getAt('Frozen'))
 		
-		assertNotNull(data.getAt('Frozen').keySet().toList().getAt(0))
-		assertEquals("PMH003BIOXFRZ1", data.getAt('Frozen').keySet().toList().getAt(0).barcode)
-		assertEquals(1, data.getAt('Frozen').values().toList().getAt(0).size())
-
-		def mutation = data.getAt('Frozen').values().toList().getAt(0).get(0)
+		assertNotNull(data.getAt('FFPE').keySet().toList().getAt(0))
+		assertEquals("TST002BIOXFOR1", data.getAt('FFPE').keySet().toList().getAt(0).barcode)
+		
+		def mutation = data.getAt('FFPE').values().toList().getAt(0).get(0)
 		assertTrue(mutation.knownMutation.gene == "PIK3CA")
 		assertTrue(mutation.knownMutation.mutation == "E542K")
     }
@@ -59,7 +58,7 @@ class ReportingDataTests extends PipelineTestCase {
 		
 		def pacBioSubjects = pacBioSubmission.subjects
 		assertEquals(1, pacBioSubjects.size())
-		assertEquals("GEN-003", pacBioSubjects.toList().getAt(0).patientId)
+		assertEquals("TST-002", pacBioSubjects.toList().getAt(0).patientId)
 		
 		def sequenomSubjects = sequenomSubmission.subjects
 		assertEquals(2, sequenomSubjects.size())

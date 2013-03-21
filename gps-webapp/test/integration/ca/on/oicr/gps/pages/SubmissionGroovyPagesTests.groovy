@@ -34,11 +34,11 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		newSubject.summary.subject = newSubject
 		newSubject.save(failOnError:true)
 		
-		def newSubmissionFileName = 'test/data/pacbio_test_07.xls'
+		def newSubmissionFileName = 'test/data/sequenom_test_01.xls'
 		def newSubmissionFile = new File(newSubmissionFileName)
 
 		def newSubmission = new Submission(
-			dataType: 'PacBioV2',
+			dataType: 'Sequenom',
 			userName: 'swatt',
 			dateSubmitted: new Date(),
 			fileName: newSubmissionFile.path,
@@ -81,7 +81,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")
 		
-		assertTrue(htmlString.contains("pacbio_test_07.xls"))
+		assertTrue(htmlString.contains("sequenom_test_01.xls"))
     }
 	
 	/**
@@ -149,6 +149,6 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		
 		// Now check we have some data
 		def rows = nodes.extractAllNodesThatMatch(new TagNameFilter("tr"), true)
-		assertTrue(rows.size > 1)
+		assertTrue(rows.size == 1)
 	}
 }

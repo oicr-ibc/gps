@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <groupId>org.obiba.heliotrope</groupId>
-    <artifactId>heliotrope</artifactId>
-    <version>0.4.7</version>
+    <groupId>ca.on.oicr</groupId>
+    <artifactId>gps</artifactId>
+    <version>0.4.8</version>
   </parent>
 
-  <artifactId>heliotrope-server</artifactId>
+  <artifactId>gps-server</artifactId>
   <packaging>pom</packaging>
   
   <name>heliotrope-server</name>

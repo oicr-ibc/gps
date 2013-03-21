@@ -41,4 +41,10 @@ grails.project.dependency.resolution = {
 		test    'commons-io:commons-io:2.0.1'
 		test    'org.gmock:gmock:0.8.2'
     }
+	
+	plugins {
+		runtime ":hibernate:$grailsVersion"
+		build ":tomcat:$grailsVersion"
+		compile ":webxml:1.4.1"
+	}
 }

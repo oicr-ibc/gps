@@ -27,7 +27,7 @@ class Query {
 			throw new RuntimeException("Invalid SELECT query: " + sql)
 		}
 		
-		def worker = new Work() {
+		Work worker = new Work() {
 			public void execute(Connection connection) throws SQLException {
 				Statement statement = connection.createStatement()
 				ResultSet rs = statement.executeQuery(body)

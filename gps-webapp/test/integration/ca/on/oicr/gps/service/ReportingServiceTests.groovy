@@ -17,7 +17,7 @@ class ReportingServiceTests extends PipelineTestCase {
     }
 	
 	void testReportXML() {
-		def sj3 = Subject.findByPatientId("GEN-003")
+		def sj3 = Subject.findByPatientId("TST-002")
 		
 		// First, just generate XML and check it casually
 		def generatedXML = reportingService.buildSubjectReportXML(sj3)
@@ -25,7 +25,7 @@ class ReportingServiceTests extends PipelineTestCase {
 	}
 
 	void testReportPersistence() {
-		def sj3 = Subject.findByPatientId("GEN-003")
+		def sj3 = Subject.findByPatientId("TST-002")
 
 		// Now we should find two reports attached to the subject, one for each
 		// submission.

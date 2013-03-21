@@ -3,15 +3,15 @@
   <modelVersion>4.0.0</modelVersion>
   
   <parent>
-    <groupId>org.obiba.heliotrope</groupId>
-    <artifactId>heliotrope</artifactId>
-    <version>0.4.7</version>
+    <groupId>ca.on.oicr</groupId>
+    <artifactId>gps</artifactId>
+    <version>0.4.8</version>
   </parent>
   
-  <artifactId>heliotrope-httpd</artifactId>
+  <artifactId>gps-httpd</artifactId>
   <packaging>jar</packaging>
   
-  <name>heliotrope-httpd</name>
+  <name>gps-httpd</name>
   
   <dependencies>
     <dependency>
