@@ -1,0 +1,183 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ca.on.oicr</groupId>
+	<artifactId>gps-variant-parser</artifactId>
+	<version>0.0.8-RELEASE</version>
+
+	<name>gps-variant-parser</name>
+	<description>Variant file parser for GPS</description>
+	<inceptionYear>2011</inceptionYear>
+	<licenses>
+		<license>
+			<name>GPL 3</name>
+			<url>http://www.gnu.org/licenses/gpl-3.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<organization>
+		<name>Ontario Institute for Cancer Research</name>
+	    <url>http://oicr.on.ca</url>
+	</organization>
+	<developers>
+		<developer>
+			<id>swatt</id>
+			<name>Stuart Watt</name>
+			<email>stuart.watt@oicr.on.ca</email>
+			<organization>Ontario Institute for Cancer Research</organization>
+			<organizationUrl>http://oicr.on.ca</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+		<developer>
+			<id>plaflamme</id>
+			<name>Philippe Laflamme</name>
+			<email>philippe.laflamme@oicr.on.ca</email>
+			<organization>Ontario Institute for Cancer Research</organization>
+			<organizationUrl>http://oicr.on.ca</organizationUrl>
+			<roles>
+				<role>architect</role>
+				<role>developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>Vincent Ferretti</name>
+			<email>vincent.ferretti@oicr.on.ca</email>
+			<organization>Ontario Institute for Cancer Research</organization>
+			<organizationUrl>http://oicr.on.ca</organizationUrl>
+			<roles>
+				<role>principal-investigator</role>
+			</roles>
+			<timezone>-5</timezone>
+		</contributor>
+		<contributor>
+			<name>Shane Wilson</name>
+			<email>shane.wilson@oicr.on.ca</email>
+			<organization>Ontario Institute for Cancer Research</organization>
+			<organizationUrl>http://oicr.on.ca</organizationUrl>
+			<roles>
+				<role>developer</role>
+			</roles>
+			<timezone>-5</timezone>
+		</contributor>
+	</contributors>
+
+	<issueManagement>
+		<system>JIRA</system>
+		<url>https://jira.oicr.on.ca/browse/GPS</url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://ci.obiba.org/job/gps-variant-parser</url>
+	</ciManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>[4.8.2,)</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.8</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.8</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>12.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.easymock</groupId>
+			<artifactId>easymock</artifactId>
+			<version>3.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode.sli4j</groupId>
+			<artifactId>sli4j-slf4j-logback</artifactId>
+			<version>2.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+		  <groupId>net.sf.opencsv</groupId>
+      <artifactId>opencsv</artifactId>
+      <version>2.0</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<verbose>true</verbose>
+					<fork>true</fork>
+					<compilerVersion>1.6</compilerVersion>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-resources-plugin</artifactId>
+										<versionRange>[2.0,)</versionRange>
+										<goals>
+											<goal>resources</goal>
+											<goal>testResources</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
