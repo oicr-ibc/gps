@@ -1,9 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   
-  <groupId>org.obiba.heliotrope</groupId>
-  <artifactId>heliotrope</artifactId>
-  <version>0.4.7</version>
+  <groupId>ca.on.oicr</groupId>
+  <artifactId>gps</artifactId>
+  <version>0.4.8</version>
   <packaging>pom</packaging>
   
   <properties>
@@ -11,20 +11,9 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
   
-  <name>heliotrope</name>
-  <description>The module that constitutes the main heliotrope.war</description>
+  <name>gps</name>
+  <description>The parent module for GPS</description>
   
-  <distributionManagement>
-    <site>
-      <id>localhost</id>
-      <url>file:target/site/</url>
-    </site>
-  </distributionManagement>
-  
-  <issueManagement>
-  	<system>JIRA</system>
-  	<url>https://jira.obiba.org/</url>
-  </issueManagement>
   <developers>
   	<developer>
   		<id>swatt</id>
@@ -65,17 +54,11 @@
   </licenses>
 
   <modules>
-    <module>heliotrope-app</module>
-    <module>heliotrope-httpd</module>
-    <module>heliotrope-server</module>
+    <module>gps-webapp</module>
+    <module>gps-httpd</module>
+    <module>gps-server</module>
   </modules>
   
-  <scm>
-  	<connection>scm:svn:https://svn.obiba.org/heliotrope</connection>
-  	<developerConnection>scm:svn:https://svn.obiba.org/heliotrope</developerConnection>
-  	<tag>HEAD</tag>
-  	<url>https://svn.obiba.org/heliotrope</url>
-  </scm>
   <build>
   	<defaultGoal>install</defaultGoal>
   	
@@ -99,19 +82,6 @@
           <source>1.6</source>
           <target>1.6</target>
           <showWarnings>true</showWarnings>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.0</version>
-        <configuration>
-          <branchBase>https://svn.obiba.org/heliotrope/branches</branchBase>
-          <tagBase>https://svn.obiba.org/heliotrope/tags/releases</tagBase>
-          <!-- Use parent version as modules' version -->
-          <autoVersionSubmodules>true</autoVersionSubmodules>
-          <releaseProfiles>release</releaseProfiles>
         </configuration>
       </plugin>
 
