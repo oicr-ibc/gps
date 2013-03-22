@@ -1,0 +1,20 @@
+Source: gps
+Section: devel
+Priority: extra
+Maintainer: Stuart Watt <stuart.watt@oicr.on.ca>
+Build-Depends: debhelper (>= 7.0.15)
+Standards-Version: 3.8.4
+Homepage: https://github.com/oicr-ibc/gps
+
+Package: gps
+Architecture: all
+Pre-Depends: debconf, coreutils (>= 6.10)
+Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, daemon, psmisc, openjdk-6-jre, dbconfig-common, mysql-client
+Recommends: mysql-server
+Description: GPS web application for genomic trials
+ GPS is OICR's genomic trial platform, allowing participants data to be 
+ securely tracked through a clinical trial. 
+ .
+ The Ontario Institute for Cancer Research (OICR) is an innovative 
+ translational research organization dedicated to research on the 
+ prevention, early detection, diagnosis and treatment of cancer.

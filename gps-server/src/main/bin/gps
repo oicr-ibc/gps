@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# OS specific support.
+cygwin=false
+case "`uname`" in
+CYGWIN*) cygwin=true;;
+esac
+
+if [ -z "$JAVA_OPTS" ]
+then
+  # Set default JAVA_OPTS
+  JAVA_OPTS="-Xmx2G -XX:MaxPermSize=128M"
+  export JAVA_OPTS
+fi
+
+# The directory containing the GPS shell script
+GPS_BIN_DIR=`dirname $0`
+# resolve links - $0 may be a softlink
+GPS_DIST=$(readlink -f $GPS_BIN_DIR/..)
+
+export GPS_DIST
+
+export GPS_LOG=$GPS_HOME/logs
+
+echo "JAVA_OPTS=$JAVA_OPTS"
+echo "GPS_HOME=$GPS_HOME"
+echo "GPS_DIST=$GPS_DIST"
+
+if [ -z "$GPS_HOME" ]
+then
+  echo "GPS_HOME not set."
+  exit 2;
+fi
+
+if $cygwin; then
+  # For Cygwin, ensure paths are in UNIX format before anything is touched
+  [ -n "$GPS_DIST" ] && GPS_BIN=`cygpath --unix "$GPS_DIST"`
+  [ -n "$GPS_HOME" ] && GPS_HOME=`cygpath --unix "$GPS_HOME"`
+  
+  # For Cygwin, switch paths to Windows format before running java  
+  export GPS_DIST=`cygpath --absolute --windows "$GPS_DIST"`
+  export GPS_HOME=`cygpath --absolute --windows "$GPS_HOME"`
+fi
+
+# Java 6 supports wildcard classpath entries
+# http://download.oracle.com/javase/6/docs/technotes/tools/solaris/classpath.html
+CLASSPATH=$GPS_HOME/conf:"$GPS_DIST/lib/*"
+if $cygwin; then
+  CLASSPATH=$GPS_HOME/conf;"$GPS_DIST/lib/*"
+fi
+
+[ -e "$GPS_HOME/logs" ] || mkdir "$GPS_HOME/logs"
+
+JAVA_DEBUG=-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
+
+# Add $JAVA_DEBUG to this line to enable remote JVM debugging (for developers)
+java $JAVA_OPTS -cp "$CLASSPATH" -DGPS_HOME="${GPS_HOME}" -DGPS_DIST=${GPS_DIST} -DGPS_LOG=${GPS_LOG} ca.on.oicr.gps.server.GPSJettyServer $@

@@ -1,0 +1,25 @@
+// Generated Groovy configuration file for GPS
+// These settings will not be overwritten by a new install of GPS
+
+environments {
+    production {
+        grails.serverURL = "http://localhost:8080/"
+	grails.plugins.springsecurity.ldap.active = true
+	grails.plugins.springsecurity.ldap.context.server = "ldap://ldap.oicr.on.ca/"
+	grails.plugins.springsecurity.ldap.context.anonymousReadOnly=true
+	grails.plugins.springsecurity.ldap.search.base = "dc=oicr,dc=on,dc=ca"
+	grails.plugins.springsecurity.ldap.authorities.groupSearchBase = "ou=Groups,dc=oicr,dc=on,dc=ca"
+	grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = "memberUid={1}"
+	grails.plugins.springsecurity.ldap.authorities.retrieveDatabaseRoles = true
+
+        grails.mail.host = "smtp.oicr.on.ca"
+
+        dataSource {
+            dbCreate = "update"
+            url = "jdbc:_DBC_DBTYPE_://_DBC_DBSERVER_/_DBC_DBNAME_?characterEncoding=UTF-8&sessionVariables=sql_Mode=ANSI"
+            username='_DBC_DBUSER_'
+            password='_DBC_DBPASS_'
+        }
+    }
+}
+

@@ -1,0 +1,9 @@
+# This is where GPS_HOME is located
+var/lib/gps
+
+# Store gps log here
+var/log/gps
+
+# And dbcommon-config directories
+usr/share/dbconfig-common/data/gps/install
+usr/share/dbconfig-common/data/gps/upgrade/mysql

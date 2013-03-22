@@ -1,0 +1,6 @@
+/plugins
+/target
+/target-eclipse
+/.*
+!/.gitignore
+
