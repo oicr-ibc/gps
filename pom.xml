@@ -25,6 +25,7 @@
     <module>gps-webapp</module>
     <module>gps-httpd</module>
     <module>gps-server</module>
+    <module>gps-tools</module>
   </modules>
   
   <developers>
