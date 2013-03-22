@@ -52,6 +52,37 @@
 
 	<build>
 		<plugins>
+		    <plugin>
+                <groupId>com.savage7.maven.plugins</groupId>
+                <artifactId>maven-external-dependency-plugin</artifactId>
+                <version>0.5</version>
+                <executions>
+                    <execution>
+                        <id>get-refgene</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resolve-external</goal>
+                            <goal>install-external</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>edu.ucsc.cse</groupId>
+                                    <artifactId>refgene</artifactId>
+                                    <version>hg19</version>
+                                    <packaging>gz</packaging>
+                                    <downloadUrl>
+                                        http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/refGene.txt.gz
+                                    </downloadUrl>
+                                    <install>true</install>
+                                    <force>false</force>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		  
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
