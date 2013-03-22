@@ -20,13 +20,13 @@
       <version>1.0.3</version>
     </dependency>
     <dependency>
-      <groupId>org.obiba.heliotrope</groupId>
-      <artifactId>heliotrope-httpd</artifactId>
+      <groupId>ca.on.oicr</groupId>
+      <artifactId>gps-httpd</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.obiba.heliotrope</groupId>
-      <artifactId>heliotrope-app</artifactId>
+      <groupId>ca.on.oicr</groupId>
+      <artifactId>gps-webapp</artifactId>
       <version>${project.version}</version>
       <type>war</type>
     </dependency>
