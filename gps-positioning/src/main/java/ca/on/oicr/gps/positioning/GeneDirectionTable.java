@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPInputStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,14 +48,16 @@ public class GeneDirectionTable {
 	public void buildDirectionTable() {
 		
 		log.debug("Loading gene direction table");
-		InputStream refGene = GeneDirectionTable.class.getResourceAsStream("/refGene.txt");
-		Reader bufferedReader = new BufferedReader(new InputStreamReader(refGene));
-
-		CSVReader reader = new CSVReader(bufferedReader, '\t');
 		String [] nextLine;
 		
 		try {
-		    while ((nextLine = reader.readNext()) != null) {
+			InputStream refGene = GenePositionLocator.class.getResourceAsStream("/refGene.txt.gz");
+			GZIPInputStream gzippedStream = new GZIPInputStream(refGene);
+			Reader bufferedReader = new BufferedReader(new InputStreamReader(gzippedStream));
+
+			CSVReader reader = new CSVReader(bufferedReader, '\t');
+
+			while ((nextLine = reader.readNext()) != null) {
 		    	
 		    	String reference = nextLine[1];
 				Matcher match = patt.matcher(reference);
@@ -67,6 +70,8 @@ public class GeneDirectionTable {
 		    	String direction = nextLine[3];
 		    	refTable.put(reference, direction); 
 		    }
+			
+			reader.close();
 		} catch (IOException e) {
 			log.error(e.getMessage());
 			e.printStackTrace(System.err);
