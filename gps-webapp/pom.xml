@@ -67,10 +67,29 @@
       </exclusions>
     </dependency>
 
+    <!-- Include the parsers -->
     <dependency>
       <groupId>ca.on.oicr</groupId>
-      <artifactId>gps-variant-parser</artifactId>
-      <version>0.0.8-RELEASE</version>
+      <artifactId>gps-parser-sanger</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ca.on.oicr</groupId>
+      <artifactId>gps-parser-pacbio</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ca.on.oicr</groupId>
+      <artifactId>gps-parser-sequenom</artifactId>
+      <version>${project.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>ca.on.oicr</groupId>
+      <artifactId>gps-parser-hotspot</artifactId>
+      <version>${project.version}</version>
       <scope>runtime</scope>
     </dependency>
 
