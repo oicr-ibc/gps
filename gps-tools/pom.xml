@@ -13,36 +13,8 @@
   <packaging>pom</packaging>
 
   <name>gps-tools</name>
-  
-  <properties>
-    <script.executable></script.executable>
-    <script.path></script.path>
-  </properties>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.2.1</version>
-        <executions>
-          <execution>
-            <id>exec-pubmed</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-           <executable>${script.executable}</executable>
-           <arguments>
-              <argument>${script.path}</argument>
-           </arguments>
-        </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+  <build></build>
 
   <profiles>
     <profile>
@@ -53,10 +25,30 @@
           <value>pubmed</value>
         </property>
       </activation>
-      <properties>
-        <script.executable>perl</script.executable>
-        <script.path>${basedir}/src/main/scripts/pubmed.pl</script.path>
-      </properties>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <executions>
+              <execution>
+                <id>exec-pubmed</id>
+                <phase>validate</phase>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <configuration>
+                  <executable>perl</executable>
+                  <arguments>
+                    <argument>${basedir}/src/main/scripts/pubmed.pl</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
     </profile>
   </profiles>
 
