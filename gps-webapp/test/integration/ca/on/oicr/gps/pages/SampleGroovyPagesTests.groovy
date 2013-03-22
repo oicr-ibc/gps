@@ -57,7 +57,7 @@ class SampleGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
 	void testSampleList() {
-		def file = new File("grails-app/views/sample/list.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/sample/list.gsp")
 		
 		def subController = new SampleController()
 		def model = subController.list()
@@ -71,7 +71,7 @@ class SampleGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
 	void testSampleShow() {
-		def file = new File("grails-app/views/sample/show.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/sample/show.gsp")
 		
 		def subController = new SampleController()
 		subController.params.id = sampleId
@@ -86,7 +86,7 @@ class SampleGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
 	void testSampleEdit() {
-		def file = new File("grails-app/views/sample/edit.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/sample/edit.gsp")
 		
 		def subController = new SampleController()
 		subController.params.id = sampleId
@@ -102,7 +102,7 @@ class SampleGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission itself.
 	 */
 	void testSampleCreate() {
-		def file = new File("grails-app/views/sample/create.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/sample/create.gsp")
 		
 		def subController = new SampleController()
 		def model = subController.create()
@@ -116,7 +116,7 @@ class SampleGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
 	void testSampleReceive() {
-		def file = new File("grails-app/views/sample/receive.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/sample/receive.gsp")
 		
 		def subController = new SampleController()
 		def model = subController.receive()

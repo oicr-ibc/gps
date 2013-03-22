@@ -37,7 +37,7 @@ class PanelGroovyPagesTests extends GroovyPagesTestCase {
 		panelController.params.id = panel.id
 		def model = panelController.show()
 		
-		def file = new File("grails-app/views/panel/show.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/panel/show.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")

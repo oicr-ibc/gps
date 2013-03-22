@@ -1,18 +1,29 @@
 package ca.on.oicr.gps
 
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
 class JqueryUiDatePickerTagLib {
+	
+	DateFormat dateFormatter = new SimpleDateFormat('dd MMM, yyyy @ hh:mm a') 
+	DateFormat yearFormatter = new SimpleDateFormat('yyyy') 
+	DateFormat monthFormatter = new SimpleDateFormat('MM')
+	DateFormat dayFormatter = new SimpleDateFormat('dd')
+	DateFormat hourFormatter = new SimpleDateFormat('HH')
+	DateFormat minuteFormatter = new SimpleDateFormat('mm')
+	
 	def jqDateAndTimePicker = {attrs, body -> 
 		def name = attrs.name 
 		def id = attrs.id ?: name
-		def value = attrs.value
+		Date value = attrs.value as Date
 		def disabled = attrs.disabled ?: ''
 		
-		def date = value ? formatDate(format:'dd MMM, yyyy @ hh:mm a',date:value) : ''
-		def year = value ? formatDate(format:'yyyy',date:value) : ''
-		def month = value ? formatDate(format:'MM',date:value) : ''
-		def day = value ? formatDate(format:'dd',date:value) : ''
-		def hour = value ? formatDate(format:'HH',date:value) as int : ''
-		def minute = value ? formatDate(format:'mm',date:value) as int : ''
+		def date = value ? dateFormatter.format(value) : ''
+		def year = value ? yearFormatter.format(value) : ''
+		def month = value ? monthFormatter.format(value) : ''
+		def day = value ? dayFormatter.format(value) : ''
+		def hour = value ? hourFormatter.format(value) : ''
+		def minute = value ? minuteFormatter.format(value) : ''
 		
 		//Create date text field and supporting hidden text fields need by grails
 		out.println "<input autocomplete=\"off\" class=\"datetimepicker\" ${disabled} type=\"text\" name=\"${name}\" id=\"${id}\" value=\"${date}\" />"
@@ -26,13 +37,13 @@ class JqueryUiDatePickerTagLib {
 	def jqDatePicker = {attrs, body -> 
 		def name = attrs.name 
 		def id = attrs.id ?: name
-		def value = attrs.value
+		Date value = attrs.value as Date
 		def disabled = attrs.disabled ?: ''
 		
-		def date = value ? formatDate(format:'dd MMM, yyyy',date:value) : ''
-		def year = value ? formatDate(format:'yyyy',date:value) : ''
-		def month = value ? formatDate(format:'MM',date:value) : ''
-		def day = value ? formatDate(format:'dd',date:value) : ''
+		def date = value ? dateFormatter.format(value) : ''
+		def year = value ? yearFormatter.format(value) : ''
+		def month = value ? monthFormatter.format(value) : ''
+		def day = value ? dayFormatter.format(value) : ''
 		
 		//Create date text field and supporting hidden text fields need by grails
 		out.println "<input autocomplete=\"off\" class=\"datepicker\" ${disabled} type=\"text\" name=\"${name}\" id=\"${id}\" value=\"${date}\" />"

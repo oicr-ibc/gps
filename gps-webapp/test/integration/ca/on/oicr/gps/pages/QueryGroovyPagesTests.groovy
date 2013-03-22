@@ -63,7 +63,7 @@ ORDER BY s.patient_id DESC
 	 * Test the query controller's ability to list the queries
 	 */
 	void testQueryList() {
-		def file = new File("grails-app/views/query/list.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/query/list.gsp")
 		
 		def subController = new QueryController()
 		def model = subController.list()
@@ -78,7 +78,7 @@ ORDER BY s.patient_id DESC
 	 * Test the query controller's ability to run a query. 
 	 */
 	void testQuery1Run() {
-		def file = new File("grails-app/views/query/run.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/query/run.gsp")
 		
 		def subController = new QueryController()
 		subController.params.id = query1Id
@@ -94,7 +94,7 @@ ORDER BY s.patient_id DESC
 	 * Test the query controller's ability to run a query, this time with actual output 
 	 */
 	void testQuery2Run() {
-		def file = new File("grails-app/views/query/run.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/query/run.gsp")
 		
 		def subController = new QueryController()
 		subController.params.id = query2Id
@@ -111,7 +111,7 @@ ORDER BY s.patient_id DESC
 	 * Test the query controller's ability to export a query, this time with actual output 
 	 */
 	void testQuery2Export() {
-		def file = new File("grails-app/views/query/export.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/query/export.gsp")
 		
 		def subController = new QueryController()
 		subController.params.id = query2Id

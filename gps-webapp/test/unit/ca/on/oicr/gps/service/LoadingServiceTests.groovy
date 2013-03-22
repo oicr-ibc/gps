@@ -29,8 +29,8 @@ class LoadingServiceTests extends GrailsUnitTestCase {
         // Only assumes run from parent app
 		def file
 		def location = "data/panels/oncocarta_v1.0/panel_targets.csv"
-		if (new File("heliotrope-app").exists()) {
-		    file = new File("heliotrope-app/${location}")
+		if (new File("gps-webapp").exists()) {
+		    file = new File("gps-webapp/${location}")
 		} else {
 			file = new File(location)
 		}

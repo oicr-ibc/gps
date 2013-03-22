@@ -69,7 +69,7 @@ class SummaryGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
     void testSummaryShow() {
-		def file = new File("grails-app/views/summary/show.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/summary/show.gsp")
 		
 		def summController = new SummaryController()
 		summController.params.id = subjectId

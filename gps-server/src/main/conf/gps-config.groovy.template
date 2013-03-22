@@ -1,5 +1,5 @@
-// Generated Groovy configuration file for Heliotrope
-// These settings will not be overwritten by a new install of Heliotrope
+// Generated Groovy configuration file for GPS
+// These settings will not be overwritten by a new install of GPS
 
 environments {
     production {

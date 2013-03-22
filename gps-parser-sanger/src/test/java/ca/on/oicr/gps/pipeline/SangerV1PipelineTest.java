@@ -35,7 +35,7 @@ public class SangerV1PipelineTest {
 	@Test
 	public void testProcessSubmission() throws Exception {
 		
-		InputStream input = new FileInputStream("src/test/resources/sanger_test_01.xls"); 
+		InputStream input = ClassLoader.getSystemResourceAsStream("sanger_test_01.xls");
 		
 		MutationSubmission submission = createMock(MutationSubmission.class);
 		expect(submission.getType()).andReturn((String) "ABI");

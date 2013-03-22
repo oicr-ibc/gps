@@ -1,9 +1,9 @@
-# This is where HELIOTROPE_HOME is located
-var/lib/heliotrope
+# This is where GPS_HOME is located
+var/lib/gps
 
-# Store heliotrope log here
-var/log/heliotrope
+# Store gps log here
+var/log/gps
 
 # And dbcommon-config directories
-usr/share/dbconfig-common/data/heliotrope/install
-usr/share/dbconfig-common/data/heliotrope/upgrade/mysql
+usr/share/dbconfig-common/data/gps/install
+usr/share/dbconfig-common/data/gps/upgrade/mysql

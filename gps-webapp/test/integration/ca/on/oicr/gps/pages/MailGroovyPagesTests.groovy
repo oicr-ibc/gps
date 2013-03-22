@@ -29,7 +29,7 @@ class MailGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
     void testMailInformation() {
-		def file = new File("grails-app/views/mail/information.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/mail/information.gsp")
 		
 		def model = [changes: [insert: 2, update: 1], modifiedSince: new Date()]
 		

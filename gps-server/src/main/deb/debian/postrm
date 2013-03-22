@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for heliotrope
+# postrm script for gps
 #
 # see: dh_installdeb(1)
 
@@ -8,7 +8,7 @@ set -e
 . /usr/share/debconf/confmodule
 
 . /usr/share/dbconfig-common/dpkg/postrm
-dbc_go heliotrope $@
+dbc_go gps $@
 
 # summary of how this script can be called:
 #        * <postrm> `remove'
@@ -26,9 +26,9 @@ dbc_go heliotrope $@
 
 case "$1" in
 	purge)
-        userdel -f heliotrope || true
-        rm -rf /var/lib/heliotrope /var/log/heliotrope /var/run/heliotrope /etc/heliotrope /usr/share/heliotrope
-        ucf --purge /etc/heliotrope/heliotrope-config.groovy
+        userdel -f gps || true
+        rm -rf /var/lib/gps /var/log/gps /var/run/gps /etc/gps /usr/share/gps
+        ucf --purge /etc/gps/gps-config.groovy
     ;;
 
     remove|upgrade|failed-upgrade|abort-install|abort-upgrade|disappear)

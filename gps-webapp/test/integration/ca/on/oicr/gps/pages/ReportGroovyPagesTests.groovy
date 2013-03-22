@@ -73,7 +73,7 @@ class ReportGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
     void testSubmissionCreate() {
-		def file = new File("grails-app/views/report/subject.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/report/subject.gsp")
 		
 		def reportController = new ReportController()
 		reportController.params.id = subjectId

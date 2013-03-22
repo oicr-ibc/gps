@@ -106,10 +106,9 @@ class PipelineTestCase extends GroovyTestCase {
 	* a pipeline
 	* @return a new submission
 	*/
-	public Submission processSubmission(String type, String filename) {
+	public Submission processSubmission(String type, File file) {
 		Submission sub = new Submission()
 		
-		File file = new File(filename);
 		sub.dataType = type
 		sub.userName = 'user'
 		sub.dateSubmitted = new Date()

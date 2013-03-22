@@ -11,6 +11,8 @@ import ca.on.oicr.gps.model.data.Decision;
 
 class DecisionGroovyPagesTests extends GroovyPagesTestCase {
 
+	def grailsApplication
+	
 	def decisionId
 	def subjectId
 
@@ -49,8 +51,8 @@ class DecisionGroovyPagesTests extends GroovyPagesTestCase {
 	 * decision.
 	 */
     void testDecisionShow() {
-		def file = new File("grails-app/views/decision/show.gsp")
-		
+		File file = new File(System.properties['base.dir'], "grails-app/views/decision/show.gsp")
+			
 		def decisionController = new DecisionController()
 		decisionController.params.id = decisionId
 		def model = decisionController.show()
@@ -66,7 +68,7 @@ class DecisionGroovyPagesTests extends GroovyPagesTestCase {
 	 * decision.
 	 */
     void testDecisionCreate() {
-		def file = new File("grails-app/views/decision/create.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/decision/create.gsp")
 		
 		def decisionController = new DecisionController()
 		decisionController.params._subject = subjectId

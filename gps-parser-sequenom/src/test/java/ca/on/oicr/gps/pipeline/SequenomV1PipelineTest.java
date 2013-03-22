@@ -64,7 +64,7 @@ public class SequenomV1PipelineTest {
 	@Test
 	public void testProcessSubmission1() throws Exception {
 		
-		InputStream input = new FileInputStream("src/test/resources/sequenom_test_01.xls"); 
+		InputStream input = ClassLoader.getSystemResourceAsStream("sequenom_test_01.xls");
 		
 		MutationSubmission submission = createMock(MutationSubmission.class);
 		expect(submission.getType()).andReturn((String) "Sequenom");
@@ -87,7 +87,7 @@ public class SequenomV1PipelineTest {
 	@Test
 	public void testProcessSubmission2() throws Exception {
 		
-		InputStream input = new FileInputStream("src/test/resources/sequenom_test_02.xls"); 
+		InputStream input = ClassLoader.getSystemResourceAsStream("sequenom_test_02.xls");
 		
 		MutationSubmission submission = createMock(MutationSubmission.class);
 		expect(submission.getType()).andReturn((String) "Sequenom");

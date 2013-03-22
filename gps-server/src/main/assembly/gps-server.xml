@@ -32,16 +32,16 @@
         <include>**/*.*</include>
       </includes>
       <excludes>
-        <exclude>heliotrope.xml</exclude>
+        <exclude>gps.xml</exclude>
       </excludes>
     </fileSet>
 
   </fileSets>
   
-  <!-- Filter heliotrope.xml, mainly so we get the project version filled in -->
+  <!-- Filter gps.xml, mainly so we get the project version filled in -->
   <files>
     <file>
-      <source>src/main/conf/heliotrope.xml</source>
+      <source>src/main/conf/gps.xml</source>
       <outputDirectory>conf</outputDirectory>
       <filtered>true</filtered>
     </file>

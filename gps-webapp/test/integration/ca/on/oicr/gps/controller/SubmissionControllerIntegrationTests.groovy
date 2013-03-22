@@ -72,7 +72,7 @@ class SubmissionControllerIntegrationTests extends PipelineTestCase {
 		
 		def mockFile = mock(MultipartFile)
 		mockFile.getOriginalFilename().returns("test/data/sequenom_test_01.xls").stub()
-		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream("test/data/sequenom_test_01.xls"))).stub()
+		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream(new File(System.properties['base.dir'], "test/data/sequenom_test_01.xls")))).stub()
 		mockFile.getContentType().returns("application/vnd.ms-excel").stub()
 		
 		def sc = new SubmissionCommand()
@@ -106,7 +106,7 @@ class SubmissionControllerIntegrationTests extends PipelineTestCase {
 		
 		def mockFile = mock(MultipartFile)
 		mockFile.getOriginalFilename().returns("test/data/sanger_test_02.xls").stub()
-		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream("test/data/sanger_test_02.xls"))).stub()
+		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream(new File(System.properties['base.dir'], "test/data/sanger_test_02.xls")))).stub()
 		mockFile.getContentType().returns("application/vnd.ms-excel").stub()
 		
 		def sc = new SubmissionCommand()
@@ -140,7 +140,7 @@ class SubmissionControllerIntegrationTests extends PipelineTestCase {
 		
 		def mockFile = mock(MultipartFile)
 		mockFile.getOriginalFilename().returns("test/data/pacbio_test_04.xls").stub()
-		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream("test/data/pacbio_test_04.xls"))).stub()
+		mockFile.getBytes().returns(IOUtils.toByteArray(new FileInputStream(new File(System.properties['base.dir'], "test/data/pacbio_test_04.xls")))).stub()
 		mockFile.getContentType().returns("application/vnd.ms-excel").stub()
 
 		def sc = new SubmissionCommand()

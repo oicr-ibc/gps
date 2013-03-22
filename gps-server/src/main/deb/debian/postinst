@@ -1,5 +1,5 @@
 #!/bin/sh
-# postinst script for heliotrope
+# postinst script for gps
 #
 # see: dh_installdeb(1)
 
@@ -8,11 +8,11 @@ set -e
 . /usr/share/debconf/confmodule
 
 . /usr/share/dbconfig-common/dpkg/postinst 
-dbc_generate_include='template:/etc/heliotrope/heliotrope-config.groovy'
+dbc_generate_include='template:/etc/gps/gps-config.groovy'
 dbc_generate_include_perms="755"
 dbc_generate_include_owner="root:root"
-dbc_generate_include_args="-o template_infile=/etc/heliotrope/heliotrope-config.groovy.template -U"
-dbc_go heliotrope $@
+dbc_generate_include_args="-o template_infile=/etc/gps/gps-config.groovy.template -U"
+dbc_go gps $@
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
@@ -31,7 +31,7 @@ case "$1" in
     configure)
 
     	RET=""
-        db_get heliotrope-server/admin_password
+        db_get gps-server/admin_password
 
         if [ "$RET" != "" ] ; then
             echo Updating administrator password.
@@ -42,26 +42,26 @@ case "$1" in
 	        if [ ! -f "$tfile" ]; then
                return 1
             fi
-			cat /etc/heliotrope/shiro.ini | sed \
+			cat /etc/gps/shiro.ini | sed \
 			  -e "s/^administrator\s*=.*,/administrator=$adminpw,/" \
-			  > $tfile && mv $tfile /etc/heliotrope/shiro.ini
+			  > $tfile && mv $tfile /etc/gps/shiro.ini
         fi
 
-    	# Create heliotrope user if it doesn't exist.
-        if ! id heliotrope > /dev/null 2>&1 ; then
-            adduser --system --home /var/lib/heliotrope --no-create-home \
-				 --disabled-password heliotrope
+    	# Create gps user if it doesn't exist.
+        if ! id gps > /dev/null 2>&1 ; then
+            adduser --system --home /var/lib/gps --no-create-home \
+				 --disabled-password gps
         fi
 
-        rm -f /usr/share/heliotrope
-        ln -s /usr/share/heliotrope-* /usr/share/heliotrope
+        rm -f /usr/share/gps
+        ln -s /usr/share/gps-* /usr/share/gps
 
-        if [ ! -e /var/lib/heliotrope/conf ] ; then
-          ln -s /etc/heliotrope /var/lib/heliotrope/conf
+        if [ ! -e /var/lib/gps/conf ] ; then
+          ln -s /etc/gps /var/lib/gps/conf
         fi
 
-        chown -R heliotrope:adm /var/lib/heliotrope /var/log/heliotrope /etc/heliotrope
-        chmod -R 750      /var/lib/heliotrope /var/log/heliotrope /etc/heliotrope
+        chown -R gps:adm /var/lib/gps /var/log/gps /etc/gps
+        chmod -R 750      /var/lib/gps /var/log/gps /etc/gps
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

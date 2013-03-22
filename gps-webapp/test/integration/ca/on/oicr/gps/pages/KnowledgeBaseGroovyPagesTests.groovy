@@ -35,7 +35,7 @@ class KnowledgeBaseGroovyPagesTests extends GroovyPagesTestCase {
 		knowledgeController.params.mutation = "KRAS G12A"
 		def model = knowledgeController.mutation()
 		
-		def file = new File("grails-app/views/knowledge/mutation.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/knowledge/mutation.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")
@@ -49,7 +49,7 @@ class KnowledgeBaseGroovyPagesTests extends GroovyPagesTestCase {
 		knowledgeController.params.mutation = "BRAF V600E"
 		def model = knowledgeController.mutation()
 		
-		def file = new File("grails-app/views/knowledge/mutation.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/knowledge/mutation.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")
@@ -63,7 +63,7 @@ class KnowledgeBaseGroovyPagesTests extends GroovyPagesTestCase {
 		knowledgeController.params.gene = "PDGFRA"
 		def model = knowledgeController.gene()
 		
-		def file = new File("grails-app/views/knowledge/gene.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/knowledge/gene.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")
@@ -81,7 +81,7 @@ class KnowledgeBaseGroovyPagesTests extends GroovyPagesTestCase {
 		knowledgeController.params.mutation = "NRAS Q61K"
 		def model = knowledgeController.mutation()
 		
-		def file = new File("grails-app/views/knowledge/mutation.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/knowledge/mutation.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")
@@ -95,7 +95,7 @@ class KnowledgeBaseGroovyPagesTests extends GroovyPagesTestCase {
 		knowledgeController.params.mutation = "BRAF V600E"
 		def model = knowledgeController.mutation()
 		
-		def file = new File("grails-app/views/knowledge/mutation.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/knowledge/mutation.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")

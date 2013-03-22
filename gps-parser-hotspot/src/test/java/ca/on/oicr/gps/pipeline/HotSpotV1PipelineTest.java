@@ -38,7 +38,7 @@ public class HotSpotV1PipelineTest {
 	@Test
 	public void testProcessSubmission() throws Exception {
 		
-		InputStream input = new FileInputStream("src/test/resources/hotspot_test_01.xlsx"); 
+		InputStream input = ClassLoader.getSystemResourceAsStream("hotspot_test_01.xlsx");
 		
 		MutationSubmission submission = createMock(MutationSubmission.class);
 		expect(submission.getType()).andReturn((String) "HotSpotV1");

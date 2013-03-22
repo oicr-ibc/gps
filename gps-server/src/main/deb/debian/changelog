@@ -1,5 +1,5 @@
-heliotrope (@project.version@) unstable; urgency=low
+gps (@project.version@) unstable; urgency=low
 
-  * See http://wiki.obiba.org/ for more details.
+  * See https://github.com/oicr-ibc/gps for more details.
 
- -- OBiBa <info@obiba.org>  @date@
+ -- OICR <info@oicr.on.ca>  @date@

@@ -1,23 +1,20 @@
-Source: heliotrope
+Source: gps
 Section: devel
 Priority: extra
-Maintainer: OBiBa <info@obiba.org>
+Maintainer: Stuart Watt <stuart.watt@oicr.on.ca>
 Build-Depends: debhelper (>= 7.0.15)
 Standards-Version: 3.8.4
-Homepage: http://www.obiba.org
+Homepage: https://github.com/oicr-ibc/gps
 
-Package: heliotrope
+Package: gps
 Architecture: all
 Pre-Depends: debconf, coreutils (>= 6.10)
 Depends: ${shlibs:Depends}, ${misc:Depends}, adduser, daemon, psmisc, openjdk-6-jre, dbconfig-common, mysql-client
 Recommends: mysql-server
-Description: OBiBa Web application for genomic trials
- Heliotrope is OBiBa's genomic trial platform, allowing participants data to be 
+Description: GPS web application for genomic trials
+ GPS is OICR's genomic trial platform, allowing participants data to be 
  securely tracked through a clinical trial. 
  .
- OBiBa is an international software development project committed to building a
- full suite of open source software for biobanks. It is comprised of several
- independent and self-funded teams around the world, each of which is producing
- stand-alone applications that support particular biobank activities. The
- applications can be customized and integrated to create a complete biobank
- information management system.
+ The Ontario Institute for Cancer Research (OICR) is an innovative 
+ translational research organization dedicated to research on the 
+ prevention, early detection, diagnosis and treatment of cancer.

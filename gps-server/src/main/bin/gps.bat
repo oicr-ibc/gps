@@ -5,24 +5,24 @@ if "%JAVA_OPTS%" == "" goto DEFAULT_JAVA_OPTS
 :INVOKE
 echo JAVA_HOME=%JAVA_HOME%
 echo JAVA_OPTS=%JAVA_OPTS%
-echo HELIOTROPE_HOME=%HELIOTROPE_HOME%
+echo GPS_HOME=%GPS_HOME%
 
-if "%HELIOTROPE_HOME%" == "" goto HELIOTROPE_HOME_NOT_SET
+if "%GPS_HOME%" == "" goto GPS_HOME_NOT_SET
 
 setlocal ENABLEDELAYEDEXPANSION
 
-set HELIOTROPE_DIST=%~dp0..
-echo HELIOTROPE_DIST=%HELIOTROPE_DIST%
+set GPS_DIST=%~dp0..
+echo GPS_DIST=%GPS_DIST%
 
 rem Java 6 supports wildcard classpaths
 rem http://download.oracle.com/javase/6/docs/technotes/tools/windows/classpath.html
-set CLASSPATH=%HELIOTROPE_HOME%\conf;%HELIOTROPE_DIST%\lib\*
+set CLASSPATH=%GPS_HOME%\conf;%GPS_DIST%\lib\*
 
 set JAVA_DEBUG=-agentlib:jdwp=transport=dt_socket,server=y,address=8000,suspend=n
 
-IF NOT EXIST "%HELIOTROPE_HOME%\logs" mkdir "%HELIOTROPE_HOME%\logs"
+IF NOT EXIST "%GPS_HOME%\logs" mkdir "%GPS_HOME%\logs"
   rem Add %JAVA_DEBUG% to this line to enable remote JVM debugging (for developers)
-  java %JAVA_OPTS% -cp "%CLASSPATH%" -DHELIOTROPE_HOME="%HELIOTROPE_HOME%" -DHELIOTROPE_DIST=%HELIOTROPE_DIST% org.obiba.heliotrope.server.HeliotropeServer %*
+  java %JAVA_OPTS% -cp "%CLASSPATH%" -DGPS_HOME="%GPS_HOME%" -DGPS_DIST=%GPS_DIST% ca.on.oicr.gps.server.GPSJettyServer %*
 goto :END
 
 :DEFAULT_JAVA_OPTS
@@ -33,8 +33,8 @@ goto :INVOKE
 echo JAVA_HOME not set
 goto :END
 
-:HELIOTROPE_HOME_NOT_SET
-echo HELIOTROPE_HOME not set
+:GPS_HOME_NOT_SET
+echo GPS_HOME not set
 goto :END
 
 :END

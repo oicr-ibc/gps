@@ -38,7 +38,7 @@ public class PacbioV2PipelineTest {
 	@Test
 	public void testProcessSubmission() throws Exception {
 		
-		InputStream input = new FileInputStream("src/test/resources/pacbio_test_04.xls"); 
+		InputStream input = ClassLoader.getSystemResourceAsStream("pacbio_test_04.xls");
 		
 		MutationSubmission submission = createMock(MutationSubmission.class);
 		expect(submission.getType()).andReturn((String) "PacBioV2");

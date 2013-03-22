@@ -18,8 +18,8 @@ class ReportingDataTests extends PipelineTestCase {
         super.setUp()
 		
 		// Load some submissions - we can now report on them
-		sub1 = processSubmission('PacBioV2', "test/data/pacbio_test_07.xls");
-		sub2 = processSubmission('Sequenom', "test/data/sequenom_test_01.xls");
+		sub1 = processSubmission('PacBioV2', new File(System.properties['base.dir'], "test/data/pacbio_test_07.xls"));
+		sub2 = processSubmission('Sequenom', new File(System.properties['base.dir'], "test/data/sequenom_test_01.xls"));
     }
 
     void testGenerateReportSubjectList() {

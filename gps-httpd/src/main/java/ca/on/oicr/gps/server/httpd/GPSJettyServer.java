@@ -1,13 +1,4 @@
-/*******************************************************************************
- * Copyright 2011(c) The OBiBa Consortium. All rights reserved.
- * 
- * This program and the accompanying materials
- * are made available under the terms of the GNU Public License v3.0.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- ******************************************************************************/
-package org.obiba.heliotrope.server.httpd;
+package ca.on.oicr.gps.server.httpd;
 
 import java.net.URL;
 
@@ -19,23 +10,23 @@ import org.eclipse.jetty.xml.XmlConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HeliotropeJettyServer {
+public class GPSJettyServer {
 
-	private static final Logger log = LoggerFactory.getLogger(HeliotropeJettyServer.class);
+	private static final Logger log = LoggerFactory.getLogger(GPSJettyServer.class);
 
 	private final Server jettyServer;
 
 	public static void main(String[] args) throws Exception {
-		HeliotropeJettyServer server = new HeliotropeJettyServer();
+		GPSJettyServer server = new GPSJettyServer();
 		server.start();
 		server.stop();
 	}
 
-	public HeliotropeJettyServer() throws Exception {
+	public GPSJettyServer() throws Exception {
 		
-		String home = System.getProperty("HELIOTROPE_HOME");
+		String home = System.getProperty("GPS_HOME");
 		
-		URL configXMLURL = new URL("file", "", home + "/conf/heliotrope.xml");
+		URL configXMLURL = new URL("file", "", home + "/conf/gps.xml");
 		log.info("Configuring web server from: " + configXMLURL);
 		Resource configXML = new FileResource(configXMLURL);
 	
@@ -51,7 +42,7 @@ public class HeliotropeJettyServer {
 
 	public void start() {
 		try {
-			log.info("Starting Heliotrope server on port {}",
+			log.info("Starting GPS server on port {}",
 					this.jettyServer.getConnectors()[0].getPort());
 			this.jettyServer.start();
 			this.jettyServer.join();
@@ -66,7 +57,7 @@ public class HeliotropeJettyServer {
 			this.jettyServer.stop();
 		} catch (Exception e) {
 			// log and ignore
-			log.warn("Exception during Heliotrope server shutdown", e);
+			log.warn("Exception during GPS server shutdown", e);
 		}
 
 	}

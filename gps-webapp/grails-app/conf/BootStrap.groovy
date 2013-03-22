@@ -53,6 +53,14 @@ class BootStrap {
 	def destroy = {
 	}
 	
+	def dataBaseDirectory() {
+		if (new File("gps-webapp").exists()) {
+			return "gps-webapp/data/"
+		} else {
+			return "data/"
+		}
+	}
+	
 	/*
 	 * In test mode, we use the loading service to set up the panels and assays that we
 	 * use for integration testing. This will not be used in production, although the 
@@ -60,23 +68,25 @@ class BootStrap {
 	 */
 	def seedTestMutationsAndAssays() {
 		
-		def oncoCartaPanelFile = new File('data/panels/oncocarta_v1.0/panel_targets.csv')
+		def base = dataBaseDirectory()
+		
+		def oncoCartaPanelFile = new File(base + 'panels/oncocarta_v1.0/panel_targets.csv')
 		assert oncoCartaPanelFile.exists()
 		loadingService.loadPanelAndTargets("OncoCarta", "1.0.0", "Sequenom", oncoCartaPanelFile)
 		
-		def oncoCartaPacBioPanelFilev1_0 = new File('data/panels/oncocarta_pacbio_v1.0/panel_targets.csv')
+		def oncoCartaPacBioPanelFilev1_0 = new File(base + 'panels/oncocarta_pacbio_v1.0/panel_targets.csv')
 		assert oncoCartaPacBioPanelFilev1_0.exists()
 		loadingService.loadPanelAndTargets("OncoCartaPacBio", "1.0.0", "PacBio", oncoCartaPacBioPanelFilev1_0)
 		
-		def oncoCartaPacBioPanelFilev1_2 = new File('data/panels/oncocarta_pacbio_v1.2/panel_targets.csv')
+		def oncoCartaPacBioPanelFilev1_2 = new File(base + 'panels/oncocarta_pacbio_v1.2/panel_targets.csv')
 		assert oncoCartaPacBioPanelFilev1_2.exists()
 		loadingService.loadPanelAndTargets("OncoCartaPacBio", "1.2.0", "PacBio", oncoCartaPacBioPanelFilev1_2)
 		
-		def oncoCartaSangerPanelFile = new File('data/panels/oncocarta_sanger_v1.0/panel_targets.csv')
+		def oncoCartaSangerPanelFile = new File(base + 'panels/oncocarta_sanger_v1.0/panel_targets.csv')
 		assert oncoCartaSangerPanelFile.exists()
 		loadingService.loadPanelAndTargets("Sanger", "1.0.0", "ABI", oncoCartaSangerPanelFile)
 
-		def solidPanelFile = new File('data/panels/solidtumor_v1.0/panel_targets.csv')
+		def solidPanelFile = new File(base + 'panels/solidtumor_v1.0/panel_targets.csv')
 		assert solidPanelFile.exists()
 		loadingService.loadPanelAndTargets("SolidTumor", "1.0.0", "Sequenom", solidPanelFile)
 	}
@@ -86,13 +96,15 @@ class BootStrap {
 	
 	def seedTestKnowledgeBase() {
 
-		File file = new File('data/mutations/known_mutations.csv')
+		def base = dataBaseDirectory()
+
+		File file = new File(base + 'mutations/known_mutations.csv')
 		loadingService.loadKnownMutations(new FileReader(file))
 		
-		File kbFile = new File('data/mutations/knowledge.xml')
+		File kbFile = new File(base + 'mutations/knowledge.xml')
 		loadingService.loadKnowledgeData(new FileReader(kbFile))
 		
-		File cosmicFile = new File('data/mutations/cosmic.xml')
+		File cosmicFile = new File(base + 'mutations/cosmic.xml')
 		loadingService.loadCosmicData(new FileReader(cosmicFile))
 		// Order here does matter, as we need to preserve referential integrity
 	}
@@ -114,17 +126,6 @@ class BootStrap {
 		if (!adminUser.authorities.contains(adminRole)) {
 			SecUserSecRole.create adminUser, adminRole
 		}
-
-		// This can be useful when working away, as it creates a user with my username
-		// and a trivial password, handy for faking login details on reports.
-		
-//		def developerUser = SecUser.findByUsername('swatt') ?: new SecUser(
-//			username: 'swatt',
-//			password: springSecurityService.encodePassword('swatt'),
-//			enabled: true).save(failOnError: true)
-//		if (!developerUser.authorities.contains(adminRole)) {
-//			SecUserSecRole.create developerUser, adminRole
-//		}
 
 		// Added a manager role: this is someone who is allowed to manage the
 		// patient information, and view most of the rest of the system.

@@ -1,5 +1,5 @@
 #!/bin/sh
-# preinst script for heliotrope
+# preinst script for gps
 #
 # see: dh_installdeb(1)
 
@@ -10,7 +10,7 @@ set -e
 # Added fix for #608500 - include common before preinst, because preinst doesn't in old deployments
 . /usr/share/dbconfig-common/dpkg/common
 . /usr/share/dbconfig-common/dpkg/preinst 
-dbc_go heliotrope $@
+dbc_go gps $@
 
 # summary of how this script can be called:
 #        * <new-preinst> `install'

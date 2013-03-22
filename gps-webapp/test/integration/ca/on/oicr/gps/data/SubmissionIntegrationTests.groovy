@@ -23,7 +23,7 @@ class SubmissionIntegrationTests extends GroovyTestCase {
 		def sub = new Submission()
 		
 		def testFileName = 'test/data/pacbio_test_07.xls'
-		def testFile = new File(testFileName)
+		def testFile = new File(System.properties['base.dir'], testFileName)
 		
 		// Check we can find the test file, to be safe
 		assertTrue testFile.exists()

@@ -12,8 +12,8 @@ class ReportingServiceTests extends PipelineTestCase {
         super.setUp()
 		
 		// Load some submissions - we can now report on them
-		processSubmission('PacBioV2', "test/data/pacbio_test_07.xls");
-		processSubmission('Sequenom', "test/data/sequenom_test_01.xls");
+		processSubmission('PacBioV2', new File(System.properties['base.dir'], "test/data/pacbio_test_07.xls"));
+		processSubmission('Sequenom', new File(System.properties['base.dir'], "test/data/sequenom_test_01.xls"));
     }
 	
 	void testReportXML() {

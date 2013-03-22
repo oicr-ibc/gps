@@ -34,7 +34,7 @@ class ObservedMutationGroovyPagesTests extends GroovyPagesTestCase {
 		
 		def model = observedMutationController.list()
 		
-		def file = new File("grails-app/views/observedMutation/list.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/observedMutation/list.gsp")
 		
 		def htmlString = applyTemplate(file.text, model)
 		def textString = (htmlString =~ /<[^>]+>/).replaceAll("")

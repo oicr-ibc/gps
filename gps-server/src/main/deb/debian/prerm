@@ -1,5 +1,5 @@
 #!/bin/sh
-# prerm script for heliotrope
+# prerm script for gps
 #
 # see: dh_installdeb(1)
 
@@ -8,7 +8,7 @@ set -e
 . /usr/share/debconf/confmodule
 
 . /usr/share/dbconfig-common/dpkg/prerm 
-dbc_go heliotrope $@
+dbc_go gps $@
 
 # summary of how this script can be called:
 #        * <prerm> `remove'

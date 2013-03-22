@@ -11,7 +11,7 @@
   <artifactId>gps-server</artifactId>
   <packaging>pom</packaging>
   
-  <name>heliotrope-server</name>
+  <name>gps-server</name>
 
   <dependencies>
     <dependency>
@@ -40,7 +40,7 @@
         <version>2.2-beta-2</version>
         <configuration>
           <descriptors>
-            <descriptor>src/main/assembly/heliotrope-server.xml</descriptor>
+            <descriptor>src/main/assembly/gps-server.xml</descriptor>
           </descriptors>
           <archive>
             <manifestSections>
@@ -48,7 +48,7 @@
                 <name>webapp</name>
                 <manifestEntries>
                   <key>/</key>
-                  <key>heliotrope-app-${project.version}</key>
+                  <key>gps-app-${project.version}</key>
                 </manifestEntries>
               </manifestSection>
             </manifestSections>
@@ -66,40 +66,6 @@
       </plugin>
     </plugins>
 
-    <pluginManagement>
-      <plugins>
-        <!-- This plugin's configuration is used to store Eclipse m2e settings 
-          only. It has no influence on the Maven build itself. -->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.grails</groupId>
-                    <artifactId>grails-maven-plugin</artifactId>
-                    <versionRange>[2.0.0,)</versionRange>
-                    <goals>
-                      <goal>maven-compile</goal>
-                      <goal>config-directories</goal>
-                      <goal>init</goal>
-                      <goal>validate</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-    
   </build>
 
   <profiles>
@@ -139,9 +105,9 @@
                       </filterset>
                     </copy>
 
-                    <unzip src="${basedir}/target/heliotrope-server-${project.version}-dist.zip" dest="${deb.dir}/usr/share" />
-                    <move todir="${deb.dir}/etc/heliotrope">
-                      <fileset dir="${deb.dir}/usr/share/heliotrope-server-${project.version}/conf" />
+                    <unzip src="${basedir}/target/gps-server-${project.version}-dist.zip" dest="${deb.dir}/usr/share" />
+                    <move todir="${deb.dir}/etc/gps">
+                      <fileset dir="${deb.dir}/usr/share/gps-server-${project.version}/conf" />
                     </move>
 
                     <exec executable="debuild" dir="${deb.dir}" failonerror="true" osfamily="unix">
@@ -164,7 +130,7 @@
                   <target>
                     <property name="deb.version" value="${project.version}" />
                     <!-- Deploy deb file in deb repo -->
-                    <copy todir="${obiba.deb.dir}" file="target/heliotrope_${deb.version}_all.deb" />
+                    <copy todir="${obiba.deb.dir}" file="target/gps_${deb.version}_all.deb" />
                   </target>
                 </configuration>
               </execution>

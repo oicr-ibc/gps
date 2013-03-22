@@ -35,7 +35,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 		newSubject.save(failOnError:true)
 		
 		def newSubmissionFileName = 'test/data/sequenom_test_01.xls'
-		def newSubmissionFile = new File(newSubmissionFileName)
+		def newSubmissionFile = new File(System.properties['base.dir'], newSubmissionFileName)
 
 		def newSubmission = new Submission(
 			dataType: 'Sequenom',
@@ -60,7 +60,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	 * submission.
 	 */
     void testSubmissionCreate() {
-		def file = new File("grails-app/views/submission/create.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/submission/create.gsp")
 		
 		def subController = new SubmissionController()
 		def model = subController.create()
@@ -73,7 +73,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	 * Test the submission controller's ability to list submissions.
 	 */
 	void testSubmissionList() {
-		def file = new File("grails-app/views/submission/list.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/submission/list.gsp")
 		
 		def subController = new SubmissionController()
 		def model = subController.list()
@@ -88,7 +88,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	 * Test the submission controller's ability to edit a submission.
 	 */
 	void testSubmissionEdit() {
-		def file = new File("grails-app/views/submission/edit.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/submission/edit.gsp")
 		
 		def subController = new SubmissionController()
 		subController.params.id = submissionId
@@ -106,7 +106,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	}
 	
 	void testPipelineSuccess() {
-		def file = new File("grails-app/views/pipeline/run.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/pipeline/run.gsp")
 
 		def submission = Submission.get(submissionId)
 		
@@ -120,7 +120,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	}
 
 	void testPipelineErrors() {
-		def file = new File("grails-app/views/pipeline/run.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/pipeline/run.gsp")
 
 		def submission = Submission.get(submissionId)
 		
@@ -136,7 +136,7 @@ class SubmissionGroovyPagesTests extends GroovyPagesTestCase {
 	}
 
 	void testListOfMutations() {
-		def file = new File("grails-app/views/summary/mutations.gsp")
+		def file = new File(System.properties['base.dir'], "grails-app/views/summary/mutations.gsp")
 
 		def summaryController = new SummaryController()
 		def model = summaryController.mutations()

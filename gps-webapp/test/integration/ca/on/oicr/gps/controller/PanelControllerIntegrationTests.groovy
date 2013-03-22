@@ -37,7 +37,7 @@ class PanelControllerIntegrationTests extends GroovyTestCase {
     }
 	
 	void testPanelCreate() {
-		InputStream input = new FileInputStream("test/data/hotspot_v2.bed")
+		InputStream input = new FileInputStream(new File(System.properties['base.dir'], "test/data/hotspot_v2.bed"))
 		MockMultipartFile dataFile = new MockMultipartFile("hotspot_v2.bed", "hotspot_v2.bed", "application/octet-stream", input)
 		PanelCommand cmd = new PanelCommand(name: "HotSpot", technology: "HotSpot", versionString: "1.0.0", dataFile: dataFile)
 		
