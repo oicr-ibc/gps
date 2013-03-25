@@ -23,6 +23,10 @@ cd gps
 mvn
 ```
 
+Note that the default memory configuration for Java may not be sufficient to build the application, 
+depending on your Java system. Using settings like `export MAVEN_OPTS="-Xmx1024m -XX:MaxPermSize=256m"`
+in your `~/.bash_profile` or equivalent should be sufficient to build the application.
+
 
 Running a local GPS
 -------------------
